@@ -251,7 +251,7 @@ def update_address_object_configuration(config, params):
     change_confi_mode(client)
     endpoint = get_endpoint(params)
     payload = get_payload(params)
-    resp = client.make_api_call(endpoint, method='PUT', payload=payload)
+    resp = client.make_api_call(endpoint, method='PATCH', payload=payload)
     commit_changes(client)
     client.logout_user()
     return resp
