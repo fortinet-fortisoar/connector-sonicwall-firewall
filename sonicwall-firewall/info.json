@@ -39,7 +39,7 @@
         "type": "text",
         "tooltip": "Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.",
         "description": "Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.",
-        "required": false,
+        "required": true,
         "visible": true,
         "editable": true
       },
@@ -49,7 +49,7 @@
         "type": "password",
         "tooltip": "Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.",
         "description": "Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.",
-        "required": false,
+        "required": true,
         "visible": true,
         "editable": true
       },

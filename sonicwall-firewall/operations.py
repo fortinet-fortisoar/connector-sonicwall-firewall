@@ -7,8 +7,10 @@ Copyright end
 
 import time
 from collections import OrderedDict
+
 import requests
 from connectors.core.connector import get_logger, ConnectorError
+
 from .constants import ADDRESS_OBJECT_MAP, HTTPstatusCodes
 
 logger = get_logger('sonicwall-firewall')
@@ -23,7 +25,8 @@ class SonicWallFirewall(object):
         self.port = config.get('port')
         if self.port:
             self.server_url = f'{self.server_url}:{str(self.port)}'
-        self.server_url = self.server_url + '/api/sonicos'
+        if not self.server_url.endswith('/api/sonicos'):
+            self.server_url = self.server_url + '/api/sonicos'
         self.verify_ssl = config.get('verify_ssl', False)
         self.basic_auth = (config.get('username'), config.get('password'))
         self.username = config.get('username')
@@ -226,14 +229,12 @@ def get_endpoint(params):
     return endpoint
 
 
-def get_address_object_configuration(config, params):
-    client = SonicWallFirewall(config)
+def get_address_object_configuration(client, params):
     endpoint = get_endpoint(params)
     return client.make_api_call(endpoint, method='GET')
 
 
-def create_address_object_configuration(config, params):
-    client = SonicWallFirewall(config)
+def create_address_object_configuration(client, params):
     start_firewall_management(client)
     change_confi_mode(client)
     payload = get_payload(params)
@@ -241,35 +242,29 @@ def create_address_object_configuration(config, params):
     endpoint = f'/address-objects/{object_type}'
     resp = client.make_api_call(endpoint, method='POST', payload=payload)
     commit_changes(client)
-    client.logout_user()
     return resp
 
 
-def update_address_object_configuration(config, params):
-    client = SonicWallFirewall(config)
+def update_address_object_configuration(client, params):
     start_firewall_management(client)
     change_confi_mode(client)
     endpoint = get_endpoint(params)
     payload = get_payload(params)
     resp = client.make_api_call(endpoint, method='PATCH', payload=payload)
     commit_changes(client)
-    client.logout_user()
     return resp
 
 
-def delete_address_object_configuration(config, params):
-    client = SonicWallFirewall(config)
+def delete_address_object_configuration(client, params):
     start_firewall_management(client)
     change_confi_mode(client)
     endpoint = get_endpoint(params)
     resp = client.make_api_call(endpoint, method='DELETE')
     commit_changes(client)
-    client.logout_user()
     return resp
 
 
-def _check_health(config):
-    client = SonicWallFirewall(config)
+def _check_health(client):
     client.logout_user()
 
 
