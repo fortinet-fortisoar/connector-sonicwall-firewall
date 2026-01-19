@@ -3,12 +3,12 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - SonicWall Firewall - 1.0.0",
+      "name": "Sample - SonicWall Firewall - 1.1.0",
       "description": "Sample playbooks for \"SonicWall Firewall\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
       "image": "",
       "uuid": "d5b7bfbc-405a-41df-bb78-07757226de3e",
-      "id": 175,
+      "id": 32,
       "deletedAt": null,
       "importedBy": [],
       "recordTags": [
@@ -29,7 +29,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1723034387,
+          "lastModifyDate": 1768562651,
           "collection": "/api/3/workflow_collections/d5b7bfbc-405a-41df-bb78-07757226de3e",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/be5fc7a1-2024-4434-8977-7cb49171b62f",
@@ -55,8 +55,8 @@
                 "singleRecordExecution": false
               },
               "status": null,
-              "top": "20",
-              "left": "20",
+              "top": "30",
+              "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
               "group": null,
               "uuid": "be5fc7a1-2024-4434-8977-7cb49171b62f"
@@ -67,7 +67,7 @@
               "description": null,
               "arguments": {
                 "name": "SonicWall Firewall",
-                "config": "",
+                "config": "39ac6e15-39ad-43ad-bff9-3247c8099e0e",
                 "params": {
                   "uuid": "233434",
                   "zone": "zone-1",
@@ -75,15 +75,15 @@
                   "object_type": "FQDN",
                   "update_object_by": "UUID"
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "sonicwall-firewall",
                 "operation": "update_address_object_configuration",
                 "operationTitle": "Update Address Object Configuration",
                 "step_variables": []
               },
               "status": null,
-              "top": "120",
-              "left": "180",
+              "top": "165",
+              "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
               "uuid": "b77227bd-4745-4392-a2a7-c8495bbfcfcd"
@@ -103,8 +103,10 @@
           ],
           "groups": [],
           "priority": null,
+          "playbookOrigin": "/api/3/picklists/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+          "isEditable": true,
           "uuid": "0df97224-a005-4a92-9260-dbff693c4779",
-          "id": 2147,
+          "id": 340,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -144,7 +146,7 @@
                   "object_type": "FQDN",
                   "delete_object_by": "UUID"
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "sonicwall-firewall",
                 "operation": "delete_address_object_configuration",
                 "operationTitle": "Delete Address Object Configuration",
@@ -199,8 +201,117 @@
           ],
           "groups": [],
           "priority": null,
+          "playbookOrigin": "/api/3/picklists/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+          "isEditable": true,
           "uuid": "17c60159-d374-41f1-b7f5-3a5eef69c98e",
-          "id": 2148,
+          "id": 341,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Sonicwall",
+            "sonicwall-firewall"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Create Address Group Object Configuration",
+          "aliasName": null,
+          "tag": null,
+          "description": "Create a new Address Group Object Configuration on a SonicWall Firewall.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1768562548,
+          "collection": "/api/3/workflow_collections/d5b7bfbc-405a-41df-bb78-07757226de3e",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/2002093d-5d19-4d80-ab3b-476b26bf5978",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Address Group Object Configuration",
+              "description": null,
+              "arguments": {
+                "name": "SonicWall Firewall",
+                "config": "39ac6e15-39ad-43ad-bff9-3247c8099e0e",
+                "params": {
+                  "object_type": "FQDN",
+                  "address_group_name": "Test_Address_group",
+                  "address_object_name": "Test_Address_group"
+                },
+                "version": "1.1.0",
+                "connector": "sonicwall-firewall",
+                "operation": "create_address_group_object_configuration",
+                "operationTitle": "Create Address Group Object Configuration",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "ad9e2745-ec0f-4e75-9b93-b3be697075fe"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "182a2a1f-bd0c-4e39-adcf-eab1d565e762",
+                "title": "SonicWall Firewall: Create Address Group Object Configuration",
+                "resources": [
+                  "alerts"
+                ],
+                "__triggerLimit": true,
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "triggerOnSource": true,
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "showToasterMessage": {
+                  "visible": false,
+                  "messageVisible": true
+                },
+                "triggerOnReplicate": false,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "2002093d-5d19-4d80-ab3b-476b26bf5978"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Create Address Group Object Configuration",
+              "targetStep": "/api/3/workflow_steps/ad9e2745-ec0f-4e75-9b93-b3be697075fe",
+              "sourceStep": "/api/3/workflow_steps/2002093d-5d19-4d80-ab3b-476b26bf5978",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "7039ce43-1d56-4ae1-a52c-b0f18ef04c57"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "playbookOrigin": "/api/3/picklists/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+          "isEditable": true,
+          "uuid": "26826ed4-5bc6-4035-8ef1-21b91a9f7f0d",
+          "id": 344,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -223,7 +334,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": null,
+          "lastModifyDate": 1768561121,
           "collection": "/api/3/workflow_collections/d5b7bfbc-405a-41df-bb78-07757226de3e",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/6d4d82ed-67e9-4241-b6d6-e582523d95d9",
@@ -234,20 +345,21 @@
               "description": null,
               "arguments": {
                 "name": "SonicWall Firewall",
-                "config": "",
+                "config": "39ac6e15-39ad-43ad-bff9-3247c8099e0e",
                 "params": {
+                  "name": "test",
                   "object_type": "IPV4",
                   "filter_object_by": "Name"
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "sonicwall-firewall",
                 "operation": "get_address_object_configuration",
                 "operationTitle": "Get Address Object Configuration",
                 "step_variables": []
               },
               "status": null,
-              "top": "120",
-              "left": "188",
+              "top": "165",
+              "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
               "uuid": "9d62f625-c11e-4ad3-8d67-437698d5b2e8"
@@ -273,8 +385,8 @@
                 "singleRecordExecution": false
               },
               "status": null,
-              "top": "20",
-              "left": "20",
+              "top": "30",
+              "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
               "group": null,
               "uuid": "6d4d82ed-67e9-4241-b6d6-e582523d95d9"
@@ -294,8 +406,10 @@
           ],
           "groups": [],
           "priority": null,
+          "playbookOrigin": "/api/3/picklists/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+          "isEditable": true,
           "uuid": "2cf44fef-b092-4b22-94e9-b6daaade8da8",
-          "id": 2145,
+          "id": 342,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -318,7 +432,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1723034654,
+          "lastModifyDate": 1768562575,
           "collection": "/api/3/workflow_collections/d5b7bfbc-405a-41df-bb78-07757226de3e",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/dfe448cc-cb04-448d-bb3e-19a567064680",
@@ -329,22 +443,22 @@
               "description": null,
               "arguments": {
                 "name": "SonicWall Firewall",
-                "config": "",
+                "config": "39ac6e15-39ad-43ad-bff9-3247c8099e0e",
                 "params": {
                   "name": "Test-Object",
                   "zone": "LAN",
                   "domain": "example.com",
                   "object_type": "FQDN"
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "sonicwall-firewall",
                 "operation": "create_address_object_configuration",
                 "operationTitle": "Create Address Object Configuration",
                 "step_variables": []
               },
               "status": null,
-              "top": "120",
-              "left": "180",
+              "top": "160",
+              "left": "120",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
               "uuid": "21459a84-73f0-40af-832d-2ee852a88d00"
@@ -370,8 +484,8 @@
                 "singleRecordExecution": false
               },
               "status": null,
-              "top": "20",
-              "left": "20",
+              "top": "30",
+              "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
               "group": null,
               "uuid": "dfe448cc-cb04-448d-bb3e-19a567064680"
@@ -391,8 +505,10 @@
           ],
           "groups": [],
           "priority": null,
+          "playbookOrigin": "/api/3/picklists/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+          "isEditable": true,
           "uuid": "53b3be55-4d7f-4a52-9c95-d6a26f221a94",
-          "id": 2146,
+          "id": 343,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,

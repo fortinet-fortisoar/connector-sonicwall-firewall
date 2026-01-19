@@ -1,13 +1,13 @@
 """
 Copyright start
 MIT License
-Copyright (c) 2024 Fortinet Inc
+Copyright (c) 2026 Fortinet Inc
 Copyright end
 """
 
 from connectors.core.connector import Connector, get_logger, ConnectorError
 
-from .operations import _check_health, operations, SonicWallFirewall
+from .operations import operations, SonicWallFirewall
 
 logger = get_logger('sonicwall-firewall')
 
@@ -27,4 +27,7 @@ class SonicWallConnector(Connector):
 
     def check_health(self, config):
         client = SonicWallFirewall(config)
-        return _check_health(client)
+        if client:
+            logger.info('connector is available')
+            client.logout_user()
+

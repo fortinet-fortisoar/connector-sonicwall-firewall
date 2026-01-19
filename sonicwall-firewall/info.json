@@ -1,7 +1,7 @@
 {
   "name": "sonicwall-firewall",
   "label": "SonicWall Firewall",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Firewall and Network Protection",
   "description": "SonicWall's advanced firewall appliances with various network and security systems. This connector facilitates seamless communication and data exchange between the SonicWall Firewall and other network elements, providing enhanced security, management, and monitoring capabilities",
   "cs_approved": false,
@@ -10,7 +10,7 @@
   "publisher": "Fortinet",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
-  "help_online": "https://github.com/fortinet-fortisoar/connector-sonicwall-firewall/blob/release/1.0.0/docs/SonicWallFirewallDoc.md",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-sonicwall-firewall/blob/release/1.1.0/docs/SonicWallFirewallDoc.md",
   "configuration": {
     "fields": [
       {
@@ -154,6 +154,13 @@
       "output_schema": {
         "status": {
           "success": "",
+          "cli": {
+            "mode": "",
+            "depth": "",
+            "configuring": "",
+            "pending_config": "",
+            "restart_required": ""
+          },
           "info": [
             {
               "level": "",
@@ -357,18 +364,84 @@
             ],
             "FQDN": [
               {
-                      "title": "Domain",
-                      "name": "domain",
-                      "type": "text",
-                      "tooltip": "Specify the domain to create the IPv6 Address Object",
-                      "description": "Specify the domain to create the IPv6 Address Object",
-                      "required": true,
-                      "editable": true,
-                      "visible": true
-                    }
+                "title": "Domain",
+                "name": "domain",
+                "type": "text",
+                "tooltip": "Specify the domain to create the IPv6 Address Object",
+                "description": "Specify the domain to create the IPv6 Address Object",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
             ]
           }
         }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Create Address Group Object Configuration",
+      "operation": "create_address_group_object_configuration",
+      "description": "Create a new Address Group Object Configuration on a SonicWall Firewall.",
+      "category": "investigation",
+      "annotation": "create_address_group_object_configuration",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "cli": {
+            "mode": "",
+            "depth": "",
+            "configuring": "",
+            "pending_config": "",
+            "restart_required": ""
+          },
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.",
+          "tooltip": "Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4"
+        },
+        {
+          "title": "Address Group Name",
+          "name": "address_group_name",
+          "type": "text",
+          "tooltip": "Specify the name for the address group object you want to create.",
+          "description": "Specify the name for the address group object you want to create.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Address Object Name",
+          "name": "address_object_name",
+          "type": "text",
+          "tooltip": "Specify the name of the address object you want to use to create an address object group.",
+          "description": "Specify the name of the address object you want to use to create an address object group.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        }
+
       ],
       "enabled": true
     },
