@@ -68,87 +68,9 @@
   },
   "operations": [
     {
-      "title": "Get Address Object Configuration",
-      "operation": "get_address_object_configuration",
-      "description": "Retrieve the configuration details for a specific address object within the SonicWall firewall.",
-      "category": "investigation",
-      "annotation": "get_address_object_configuration",
-      "output_schema": {
-        "address_objects": [
-          {
-            "ipv4": {
-              "name": "",
-              "uuid": "",
-              "zone": ""
-            }
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "title": "Object Type",
-          "name": "object_type",
-          "type": "select",
-          "description": "Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN",
-          "tooltip": "Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "options": [
-            "IPV4",
-            "IPV6",
-            "FQDN"
-          ],
-          "value": "IPV4"
-        },
-        {
-          "title": "Filter Address Object By",
-          "name": "filter_object_by",
-          "type": "select",
-          "description": "Select filter parameters to retrieve address object configurations details by UUID or name.",
-          "tooltip": "Select filter parameters to retrieve address object configurations details by UUID or name.",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "options": [
-            "UUID",
-            "Name"
-          ],
-          "value": "Name",
-          "onchange": {
-            "UUID": [
-              {
-                "title": "UUID",
-                "name": "uuid",
-                "type": "text",
-                "tooltip": "Specify the universally unique identifier (UUID) of the address object to retrieve its information.",
-                "description": "Specify the universally unique identifier (UUID) of the address object to retrieve its information.",
-                "required": true,
-                "editable": true,
-                "visible": true
-              }
-            ],
-            "Name": [
-              {
-                "title": "Name",
-                "name": "name",
-                "type": "text",
-                "tooltip": "Specify the name of the Address Object to retrieve its information",
-                "description": "Specify the name of the Address Object to retrieve its information",
-                "required": true,
-                "editable": true,
-                "visible": true
-              }
-            ]
-          }
-        }
-      ],
-      "enabled": true
-    },
-    {
-      "title": "Create Address Object Configuration",
+      "title": "Create Address Object",
       "operation": "create_address_object_configuration",
-      "description": "Create a new Address Object Configuration on a SonicWall Firewall.",
+      "description": "Creates a new address object on the SonicWall firewall.",
       "category": "investigation",
       "annotation": "create_address_object_configuration",
       "output_schema": {
@@ -175,18 +97,20 @@
           "title": "Name",
           "name": "name",
           "type": "text",
-          "tooltip": "Specify the name for the address object you wish to create.",
-          "description": "Specify the name for the address object you wish to create.",
+          "tooltip": "Specify the name of the address object to create.",
+          "description": "Specify the name of the address object to create.",
           "required": true,
           "editable": true,
-          "visible": true
+          "visible": true,
+          "placeholder": "e.g., BlockedHost_1.2.3.4"
         },
         {
           "title": "Zone",
           "name": "zone",
           "type": "text",
-          "tooltip": "Specify the specific zone within the domain, ipv4 or ipv6 that you wish to create a address object configuration",
-          "description": "Specify the specific zone within the domain, ipv4 or ipv6 that you wish to create a address object configuration",
+          "tooltip": "Security zone for the address object (e.g., WAN, LAN, DMZ).",
+          "description": "Security zone for the address object (e.g., WAN, LAN, DMZ).",
+          "placeholder": "WAN",
           "required": true,
           "editable": true,
           "visible": true
@@ -265,12 +189,12 @@
                       "title": "Subnet",
                       "name": "subnet",
                       "type": "text",
-                      "tooltip": "Specify the subdivision of an IP network.",
-                      "description": "Specify the subdivision of an IP network.",
+                      "tooltip": "Subnet mask (required for network type), e.g., 255.255.255.0",
+                      "description": "Subnet mask (required for network type), e.g., 255.255.255.0",
                       "required": true,
                       "editable": true,
                       "visible": true,
-                      "placeholder": "100.100.100.0"
+                      "placeholder": "255.255.255.0"
                     },
                     {
                       "title": "Mask",
@@ -367,8 +291,87 @@
                 "title": "Domain",
                 "name": "domain",
                 "type": "text",
-                "tooltip": "Specify the domain to create the IPv6 Address Object",
-                "description": "Specify the domain to create the IPv6 Address Object",
+                "tooltip": "Specify the Fully Qualified Domain Name (for fqdn type)",
+                "description": "Specify the Fully Qualified Domain Name (for fqdn type)",
+                "required": true,
+                "placeholder": "malicious.example.com",
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Get Address Object",
+      "operation": "get_address_object_configuration",
+      "description": "Retrieve one or all address object details within the SonicWall firewall.",
+      "category": "investigation",
+      "annotation": "get_address_object_configuration",
+      "output_schema": {
+        "address_objects": [
+          {
+            "ipv4": {
+              "name": "",
+              "uuid": "",
+              "zone": ""
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN",
+          "tooltip": "Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4"
+        },
+        {
+          "title": "Filter Address Object By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "Select filter parameters to retrieve address object configurations details by UUID or name.",
+          "tooltip": "Select filter parameters to retrieve address object configurations details by UUID or name.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the address object to retrieve its information.",
+                "description": "Specify the universally unique identifier (UUID) of the address object to retrieve its information.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the Address Object to retrieve its information",
+                "description": "Specify the name of the Address Object to retrieve its information",
                 "required": true,
                 "editable": true,
                 "visible": true
@@ -380,11 +383,364 @@
       "enabled": true
     },
     {
-      "title": "Create Address Group Object Configuration",
-      "operation": "create_address_group_object_configuration",
+      "title": "Update Address Object",
+      "operation": "update_address_object_configuration",
+      "description": "Updates an existing address object on the SonicWall firewall.",
+      "category": "investigation",
+      "annotation": "update_address_object_configuration",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Update Type",
+          "name": "update_type",
+          "type": "select",
+          "tooltip": "Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.",
+          "description": "Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "options": [
+            "Partial Update",
+            "Full Replace"
+          ],
+          "value": "Partial Update"
+        },
+        {
+          "title": "Update Address Object By",
+          "name": "update_object_by",
+          "type": "select",
+          "description": "Select the input option (name or UUID) to update the address object configuration.",
+          "tooltip": "Select the input option (name or UUID) to update the address object configuration.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the address that you want to update the address object.",
+                "description": "Specify the universally unique identifier (UUID) of the address that you want to update the address object.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Address Object Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the address object that you want to update the address object.",
+                "description": "Specify the name of the address object that you want to update the address object.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Choose the object type parameters to update address object configuration based on the specified input type: IPv4, IPv6, or FQDN",
+          "tooltip": "Choose the object type parameters to update address object configuration  based on the specified input type: IPv4, IPv6, or FQDN",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4",
+          "onchange": {
+            "IPV4": [
+              {
+                "title": "Address Object",
+                "name": "address_object",
+                "type": "select",
+                "tooltip": "Select the type of IPv4 address object you wish to update: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.",
+                "description": "Select the type of IPv4 address object you wish to update: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "options": [
+                  "Host IP Address",
+                  "IP Range",
+                  "Network IP Address"
+                ],
+                "value": "Host IP Address",
+                "onchange": {
+                  "Host IP Address": [
+                    {
+                      "title": "IP Address",
+                      "name": "ip_address",
+                      "type": "text",
+                      "tooltip": "Specify the IPv4 address of the host to update the IPv4 Address Object",
+                      "description": "Specify the IPv4 address of the host to update the IPv4 Address Object",
+                      "required": true,
+                      "editable": true,
+                      "visible": true
+                    }
+                  ],
+                  "IP Range": [
+                    {
+                      "title": "Starting Range of IP Address",
+                      "name": "begin",
+                      "type": "text",
+                      "tooltip": "Specify the starting IP address of the range for the IPv4 Address Object.",
+                      "description": "Specify the starting IP address of the range for the IPv4 Address Object.",
+                      "required": true,
+                      "editable": true,
+                      "visible": true,
+                      "placeholder": "200.100.100.233"
+                    },
+                    {
+                      "title": "Ending Range of IP Address",
+                      "name": "end",
+                      "type": "text",
+                      "tooltip": "Specify the ending IP address of the range for the IPv4 Address Object.",
+                      "description": "Specify the ending IP address of the range for the IPv4 Address Object.",
+                      "required": true,
+                      "editable": true,
+                      "visible": true,
+                      "placeholder": "200.200.200.233"
+                    }
+                  ],
+                  "Network IP Address": [
+                    {
+                      "title": "Subnet",
+                      "name": "subnet",
+                      "type": "text",
+                      "tooltip": "Specify the subdivision of an IP network.",
+                      "description": "Specify the subdivision of an IP network.",
+                      "required": true,
+                      "editable": true,
+                      "visible": true,
+                      "placeholder": "100.100.100.0"
+                    },
+                    {
+                      "title": "Mask",
+                      "name": "mask",
+                      "type": "text",
+                      "tooltip": "Specify the masking value of the IP address",
+                      "description": "Specify the masking value of the IP address",
+                      "required": true,
+                      "editable": true,
+                      "visible": true,
+                      "placeholder": "255.255.255.0"
+                    }
+                  ]
+                }
+              }
+            ],
+            "IPV6": [
+              {
+                "title": "Address Object",
+                "name": "address_object",
+                "type": "select",
+                "tooltip": "Select the type of IPv6 address object you wish to update: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.",
+                "description": "Select the type of IPv6 address object you wish to update: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "options": [
+                  "Host IP Address",
+                  "IP Range",
+                  "Network IP Address"
+                ],
+                "value": "Host IP Address",
+                "onchange": {
+                  "Host IP Address": [
+                    {
+                      "title": "IP Address",
+                      "name": "ip_address",
+                      "type": "text",
+                      "tooltip": "Specify the IPv6 address of the host to update the IPv6 Address Object",
+                      "description": "Specify the IPv6 address of the host to update the IPv6 Address Object",
+                      "required": true,
+                      "editable": true,
+                      "visible": true
+                    }
+                  ],
+                  "IP Range": [
+                    {
+                      "title": "Starting Range of IP Address",
+                      "name": "begin",
+                      "type": "text",
+                      "tooltip": "Specify the starting IP address of the range for the IPv6 Address Object.",
+                      "description": "Specify the starting IP address of the range for the IPv6 Address Object.",
+                      "required": true,
+                      "editable": true,
+                      "visible": true
+                    },
+                    {
+                      "title": "Ending Range of IP Address",
+                      "name": "end",
+                      "type": "text",
+                      "tooltip": "Specify the ending IP address of the range for the IPv6 Address Object.",
+                      "description": "Specify the ending IP address of the range for the IPv6 Address Object.",
+                      "required": true,
+                      "editable": true,
+                      "visible": true
+                    }
+                  ],
+                  "Network IP Address": [
+                    {
+                      "title": "Subnet",
+                      "name": "subnet",
+                      "type": "text",
+                      "tooltip": "Specify the subdivision of an IP network.",
+                      "description": "Specify the subdivision of an IP network.",
+                      "required": true,
+                      "editable": true,
+                      "visible": true
+                    },
+                    {
+                      "title": "Mask",
+                      "name": "mask",
+                      "type": "text",
+                      "tooltip": "Specify the masking value of the IP address",
+                      "description": "Specify the masking value of the IP address",
+                      "required": true,
+                      "editable": true,
+                      "visible": true
+                    }
+                  ]
+                }
+              }
+            ],
+            "FQDN": [
+              {
+                "title": "Domain",
+                "name": "domain",
+                "type": "text",
+                "tooltip": "Specify the domain you wish to update within the current address object configuration.",
+                "description": "Specify the domain you wish to update within the current address object configuration.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Zone",
+          "name": "zone",
+          "type": "text",
+          "tooltip": "Specify the specific zone within the domain, ipv4 or ipv6 that you wish to update in the address object configuration",
+          "description": "Specify the specific zone within the domain, ipv4 or ipv6 that you wish to update in the address object configuration",
+          "required": true,
+          "editable": true,
+          "visible": true
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Delete Address Object",
+      "operation": "delete_address_object_configuration",
+      "description": "Delete the a specific address object based on specified input parameters.",
+      "category": "investigation",
+      "annotation": "delete_address_object_configuration",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Choose the object type parameters to delete the address object configuration dbased on the specified input type: IPv4, IPv6, or FQDN",
+          "tooltip": "Choose the object type parameters to delete the address object configuration dbased on the specified input type: IPv4, IPv6, or FQDN",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4"
+        },
+        {
+          "title": "Delete Address Object By",
+          "name": "delete_object_by",
+          "type": "select",
+          "description": "Select filter parameters to delete IPV4 Address Object configurations by UUID or Name.",
+          "tooltip": "Select filter parameters to delete IPV4 Address Object configurations by UUID or Name.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the IPv4 Address Object",
+                "description": "Specify the universally unique identifier (UUID) of the IPv4 Address Object",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the IPv4 Address Object",
+                "description": "Specify the name of the IPv4 Address Object",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Create Address Group",
+      "operation": "create_address_group",
       "description": "Create a new Address Group Object Configuration on a SonicWall Firewall.",
       "category": "investigation",
-      "annotation": "create_address_group_object_configuration",
+      "annotation": "create_address_group",
       "output_schema": {
         "status": {
           "success": "",
@@ -441,16 +797,93 @@
           "editable": true,
           "visible": true
         }
-
       ],
       "enabled": true
     },
     {
-      "title": "Update Address Object Configuration",
-      "operation": "update_address_object_configuration",
+      "title": "Get Address Group",
+      "operation": "get_address_group",
+      "description": "Retrieves details for one or all address groups from the SonicWall firewall.",
+      "category": "investigation",
+      "annotation": "get_address_group",
+      "output_schema": {
+        "address_objects": [
+          {
+            "ipv4": {
+              "name": "",
+              "uuid": "",
+              "zone": ""
+            }
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN",
+          "tooltip": "Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4"
+        },
+        {
+          "title": "Filter Address Group By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "Select filter parameters to retrieve address groups configurations details by UUID or name.",
+          "tooltip": "Select filter parameters to retrieve address groups configurations details by UUID or name.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "Group UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the address group to retrieve its information.",
+                "description": "Specify the universally unique identifier (UUID) of the address group to retrieve its information.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Group Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the address group to retrieve its information",
+                "description": "Specify the name of the address group to retrieve its information",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Update Address in Group",
+      "operation": "update_address_group",
       "description": "Update the configuration of an existing address object on a SonicWall firewall to reflect current network requirements or policies.",
       "category": "investigation",
-      "annotation": "update_address_object_configuration",
+      "annotation": "update_address_group",
       "output_schema": {
         "status": {
           "success": "",
@@ -464,6 +897,21 @@
         }
       },
       "parameters": [
+        {
+          "title": "Update Type",
+          "name": "update_type",
+          "type": "select",
+          "tooltip": "Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.",
+          "description": "Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "options": [
+            "Partial Update",
+            "Full Replace"
+          ],
+          "value": "Partial Update"
+        },
         {
           "title": "Object Type",
           "name": "object_type",
@@ -498,7 +946,7 @@
                 "onchange": {
                   "UUID": [
                     {
-                      "title": "Name",
+                      "title": "Group Name",
                       "name": "name",
                       "type": "text",
                       "tooltip": "Specify the name of the address object you want to update.",
@@ -506,21 +954,11 @@
                       "required": true,
                       "editable": true,
                       "visible": true
-                    },
-                    {
-                      "title": "UUID",
-                      "name": "uuid",
-                      "type": "text",
-                      "tooltip": "Specify the universally unique identifier (UUID) of the address object based on the following field you want to update.",
-                      "description": "Specify the universally unique identifier (UUID) of the address object based on the following field you want to update.",
-                      "required": true,
-                      "editable": true,
-                      "visible": true
                     }
                   ],
                   "Name": [
                     {
-                      "title": "Name",
+                      "title": "Group Name",
                       "name": "name",
                       "type": "text",
                       "tooltip": "Specify the name of the address object based on the following field you want to update.",
@@ -797,11 +1235,11 @@
       "enabled": true
     },
     {
-      "title": "Delete Address Object Configuration",
-      "operation": "delete_address_object_configuration",
-      "description": "Delete the a specific address object based on specified input parameters.",
+      "title": "Delete Address From Group",
+      "operation": "delete_address_group",
+      "description": "Delete the a specific address group based on specified input parameters.",
       "category": "investigation",
-      "annotation": "delete_address_object_configuration",
+      "annotation": "delete_address_group",
       "output_schema": {
         "status": {
           "success": "",
@@ -819,8 +1257,8 @@
           "title": "Object Type",
           "name": "object_type",
           "type": "select",
-          "description": "Choose the object type parameters to delete the address object configuration dbased on the specified input type: IPv4, IPv6, or FQDN",
-          "tooltip": "Choose the object type parameters to delete the address object configuration dbased on the specified input type: IPv4, IPv6, or FQDN",
+          "description": "Choose the object type parameters to delete the address object configuration based on the specified input type: IPv4, IPv6, or FQDN",
+          "tooltip": "Choose the object type parameters to delete the address object configuration based on the specified input type: IPv4, IPv6, or FQDN",
           "visible": true,
           "editable": true,
           "required": true,
@@ -871,6 +1309,180 @@
               }
             ]
           }
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Add Address Object to Group",
+      "operation": "add_address_object_to_group",
+      "description": "Adds an existing address object to a specified address group.",
+      "category": "investigation",
+      "annotation": "add_address_object_to_group",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "cli": {
+            "mode": "",
+            "depth": "",
+            "configuring": "",
+            "pending_config": "",
+            "restart_required": ""
+          },
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Select the object type to add the address object to the specified group.",
+          "tooltip": "Select the object type to add the address object to the specified group.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4"
+        },
+        {
+          "title": "Filter Address Group By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "Select filter parameters to fetch the address group configurations details by UUID or name.",
+          "tooltip": "Select filter parameters to fetch the address group configurations details by UUID or name.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the address group to retrieve its information.",
+                "description": "Specify the universally unique identifier (UUID) of the group object to retrieve its information.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the address group to retrieve its information",
+                "description": "Specify the name of the address group to retrieve its information",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Address Object Name",
+          "description": "Name of the address object to add to the specified group.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "address_object_name",
+          "placeholder": "BlockedHost_1.2.3.4"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "title": "Remove Address Object from Group",
+      "operation": "remove_address_object_from_group",
+      "description": "Removes an address object from an address group.",
+      "category": "investigation",
+      "annotation": "remove_address_object_from_group",
+      "output_schema": {},
+      "parameters": [
+        {
+          "title": "Object Type",
+          "name": "object_type",
+          "type": "select",
+          "description": "Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.",
+          "tooltip": "Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "IPV4",
+            "IPV6",
+            "FQDN"
+          ],
+          "value": "IPV4"
+        },
+        {
+          "title": "Filter Address Group By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "Select filter parameters to fetch the address group configurations details by UUID or name.",
+          "tooltip": "Select filter parameters to fetch the address group configurations details by UUID or name.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the address group to retrieve its information.",
+                "description": "Specify the universally unique identifier (UUID) of the group object to retrieve its information.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the address group to retrieve its information",
+                "description": "Specify the name of the address group to retrieve its information",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Address Object Name",
+          "description": "Name of the address object to add to the group.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "address_object_name",
+          "placeholder": "BlockedHost_1.2.3.4"
         }
       ],
       "enabled": true

@@ -16,6 +16,7 @@ class SonicWallConnector(Connector):
     def execute(self, config, operation, params, **kwargs):
         client = SonicWallFirewall(config)
         try:
+            logger.debug('Executing connector action: {}'.format(operation))
             action = operations.get(operation)
             return action(client, params)
         except Exception as err:
