@@ -1,107 +1,99 @@
 
-<h2>About the connector</h2>
+## About the connector
 
-<p>SonicWall's advanced firewall appliances with various network and security systems. This connector facilitates seamless communication and data exchange between the SonicWall Firewall and other network elements, providing enhanced security, management, and monitoring capabilities</p>
+SonicWall's advanced firewall appliances with various network and security systems. This connector facilitates seamless communication and data exchange between the SonicWall Firewall and other network elements, providing enhanced security, management, and monitoring capabilities
 
-<p>This document provides information about the SonicWall Firewall connector, which facilitates automated interactions, with a SonicWall Firewall server using FortiSOAR&trade; playbooks. Add the SonicWall Firewall connector as a step in FortiSOAR&trade; playbooks and perform automated operations with SonicWall Firewall.</p>
+This document provides information about the SonicWall Firewall connector, which facilitates automated interactions, with a SonicWall Firewall server using FortiSOAR™ playbooks. Add the SonicWall Firewall connector as a step in FortiSOAR™ playbooks and perform automated operations with SonicWall Firewall.
 
-<h3>Version information</h3>
+### Version information
 
-<p>Connector Version: 1.1.0</p>
+Connector Version: 1.1.0
 
-<p>Authored By: Fortinet</p>
+Authored By: Fortinet
 
-<p>Certified: No</p>
+Certified: No
 
-<h2>Release Notes for version 1.1.0</h2>
+## Release Notes for version 1.1.0
 
-<p>Following enhancements have been made to the SonicWall Firewall connector in version 1.1.0:</p>
+Following enhancements have been made to the SonicWall Firewall connector in version 1.1.0:
 
-<h4>What's Fix</h4>
+#### What's Fix
 
-<ul>
-<li>Fixed an issue where an Unauthorized error occurred while executing connector actions.</li>
-<li>Rename the <code>Get Address Object Configuration</code> action to <code>Get Address Object</code></li>
-<li>Rename the <code>Create Address Object Configuration</code> action to <code>Create Address Object</code></li>
-<li>Rename the <code>Update Address Object Configuration</code> action to <code>Update Address Object</code></li>
-<li>Rename the <code>Delete Address Object Configuration</code> action to <code>Delete Address Object</code></li>
+-   Fixed an issue where an Unauthorized error occurred while executing connector actions.
+-   Renamed the action *Get Address Object Configuration* to **Get Address Object**
+-   Renamed the action *Create Address Object Configuration* to **Create Address Object**
+-   Renamed the action *Update Address Object Configuration* to **Update Address Object**
+-   Renamed the action *Delete Address Object Configuration* to **Delete Address Object**
+-   Added the following new actions and corresponding playbooks:
+    -   Create Address Group
+    -   Get Address Group
+    -   Update Address in Group
+    -   Delete Address From Group
+    -   Add Address Object to Group
+    -   Remove Address Object from Group
 
-<li><p>Added the following new actions and corresponding playbooks:</p>
+## Installing the connector
 
-<ul>
-<li>Create Address Group</li>
-<li>Get Address Group</li>
-<li>Update Address in Group</li>
-<li>Delete Address From Group</li>
-<li>Add Address Object to Group</li>
-<li>Remove Address Object from Group</li>
-</ul></li>
-</ul>
+Use the **Content Hub** to install the connector. For the detailed procedure to install a connector, click [here](https://docs.fortinet.com/document/fortisoar/0.0.0/installing-a-connector/1/installing-a-connector).
 
-<h2>Installing the connector</h2>
+## Prerequisites to configuring the connector
 
-<p>Use the <strong>Content Hub</strong> to install the connector. For the detailed procedure to install a connector, click <a href="https://docs.fortinet.com/document/fortisoar/0.0.0/installing-a-connector/1/installing-a-connector" target="_top">here</a>.</p><p>You can also use the <code>yum</code> command as a root user to install the connector:</p>
+-   You must have the credentials of SonicWall Firewall server to which you will connect and perform automated operations.
+-   The FortiSOAR™ server should have outbound connectivity to port 443 on the SonicWall Firewall server.
 
-<pre>yum install cyops-connector-sonicwall-firewall</pre>
+## Minimum Permissions Required
 
-<h2>Prerequisites to configuring the connector</h2>
+-   Not applicable
 
-<ul>
-<li>You must have the credentials of SonicWall Firewall server to which you will connect and perform automated operations.</li>
-<li>The FortiSOAR&trade; server should have outbound connectivity to port 443 on the SonicWall Firewall server.</li>
-</ul>
+## Configuring the connector
 
-<h2>Minimum Permissions Required</h2>
+For the procedure to configure a connector, click [here](https://docs.fortinet.com/document/fortisoar/0.0.0/configuring-a-connector/1/configuring-a-connector)
 
-<ul>
-<li>Not applicable</li>
-</ul>
+### Configuration parameters
 
-<h2>Configuring the connector</h2>
+In FortiSOAR™, on the Connectors page, click the **SonicWall Firewall** connector row (if you are in the **Grid** view on the Connectors page) and in the **Configurations** tab enter the required configuration details:
 
-<p>For the procedure to configure a connector, click <a href="https://docs.fortinet.com/document/fortisoar/0.0.0/configuring-a-connector/1/configuring-a-connector">here</a></p>
+| Parameter  | Description                                                                                                                            |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| Server URL | Specify the Rest API endpoint URL of the SonicWall server to connect and perform automated operations.                                 |
+| Port       | Specify the port of the SonicWall server to connect and perform automated operations.                                                  |
+| Username   | Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.         |
+| Password   | Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.         |
+| Verify SSL | Specifies whether the SSL certificate for the server is to be verified.<br />By default, this option is selected, i.e., set to `true`. |
 
-<h3>Configuration parameters</h3>
+## Actions supported by the connector
 
-<p>In FortiSOAR&trade;, on the Connectors page, click the <strong>SonicWall Firewall</strong> connector row (if you are in the <strong>Grid</strong> view on the Connectors page) and in the <strong>Configurations</strong> tab enter the required configuration details:</p>
+You can use the following automated operations in playbooks and also use the annotations to access operations:
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Server URL</td><td>Specify the Rest API endpoint URL of the SonicWall server to connect and perform automated operations.</td></tr>
-<tr><td>Port</td><td>Specify the port of the SonicWall server to connect and perform automated operations.</td></tr>
-<tr><td>Username</td><td>Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.</td></tr>
-<tr><td>Password</td><td>Specify the username to access the SonicWall Rest API endpoint to which you will connect and perform the automated operations.</td></tr>
-<tr><td>Verify SSL</td><td>Specifies whether the SSL certificate for the server is to be verified. <br/>By default, this option is selected, i.e., set to <code>true</code>.</td></tr>
-</tbody></table>
+| Function                         | Description                                                                                                                         | Annotation and Category                                |
+|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| Create Address Object            | Creates a new address object on the SonicWall firewall.                                                                             | create_address_object_configuration<br />Investigation |
+| Get Address Object               | Retrieves one or all address object details within the SonicWall firewall.                                                           | get_address_object_configuration<br />Investigation    |
+| Update Address Object            | Updates an existing address object on the SonicWall firewall.                                                                       | update_address_object_configuration<br />Investigation |
+| Delete Address Object            | Deletes the a specific address object based on specified input parameters.                                                           | delete_address_object_configuration<br />Investigation |
+| Create Address Group             | Creates a new Address Group Object Configuration on a SonicWall Firewall.                                                            | create_address_group<br />Investigation                |
+| Get Address Group                | Retrieves details for one or all address groups from the SonicWall firewall.                                                        | get_address_group<br />Investigation                   |
+| Update Address in Group          | Updates the configuration of an existing address object on a SonicWall firewall to reflect current network requirements or policies. | update_address_group<br />Investigation                |
+| Delete Address From Group        | Deletes the a specific address group based on specified input parameters.                                                            | delete_address_group<br />Investigation                |
+| Add Address Object to Group      | Adds an existing address object to a specified address group.                                                                       | add_address_object_to_group<br />Investigation         |
+| Remove Address Object from Group | Removes an address object from an address group.                                                                                    | remove_address_object_from_group<br />Investigation    |
 
-<h2>Actions supported by the connector</h2>
+### operation: Create Address Object
 
-<p>You can use the following automated operations in playbooks and also use the annotations to access operations:</p>
+#### Input parameters
 
-<table border=1><thead><tr><th>Function</th><th>Description</th><th>Annotation and Category</th></tr></thead><tbody><tr><td>Create Address Object</td><td>Creates a new address object on the SonicWall firewall.</td><td>create_address_object_configuration <br/>Investigation</td></tr>
-<tr><td>Get Address Object</td><td>Retrieve one or all address object details within the SonicWall firewall.</td><td>get_address_object_configuration <br/>Investigation</td></tr>
-<tr><td>Update Address Object</td><td>Updates an existing address object on the SonicWall firewall.</td><td>update_address_object_configuration <br/>Investigation</td></tr>
-<tr><td>Delete Address Object</td><td>Delete the a specific address object based on specified input parameters.</td><td>delete_address_object_configuration <br/>Investigation</td></tr>
-<tr><td>Create Address Group</td><td>Create a new Address Group Object Configuration on a SonicWall Firewall.</td><td>create_address_group <br/>Investigation</td></tr>
-<tr><td>Get Address Group</td><td>Retrieves details for one or all address groups from the SonicWall firewall.</td><td>get_address_group <br/>Investigation</td></tr>
-<tr><td>Update Address in Group</td><td>Update the configuration of an existing address object on a SonicWall firewall to reflect current network requirements or policies.</td><td>update_address_group <br/>Investigation</td></tr>
-<tr><td>Delete Address From Group</td><td>Delete the a specific address group based on specified input parameters.</td><td>delete_address_group <br/>Investigation</td></tr>
-<tr><td>Add Address Object to Group</td><td>Adds an existing address object to a specified address group.</td><td>add_address_object_to_group <br/>Investigation</td></tr>
-<tr><td>Remove Address Object from Group</td><td>Removes an address object from an address group.</td><td>remove_address_object_from_group <br/>Investigation</td></tr>
-</tbody></table>
+| Parameter   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Name        | Specify the name of the address object to create.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Zone        | Security zone for the address object (e.g., WAN, LAN, DMZ).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Object Type | Select one of the following object types to create the address object configuration:<br /><br />**IPV4**<br />- **Address Object**: Select the type of IPv4 address object you wish to create: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.<br /><br />**Host IP Address**<br />- **IP Address**: Specify the IPv4 address of the host to create the IPv4 Address Object<br /><br />**IP Range**<br />- **Starting Range of IP Address**: Specify the starting IP address of the range for the IPv4 Address Object.<br />- **Ending Range of IP Address**: Specify the ending IP address of the range for the IPv4 Address Object.<br /><br />**Network IP Address**<br />- **Subnet**: Subnet mask (required for network type), e.g., 255.255.255.0<br />- **Mask**: Specify the masking value of the IP address<br /><br />**IPV6**<br />- **Address Object**: Select the type of IPv6 address object you wish to create: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.<br /><br />**Host IP Address**<br />- **IP Address**: Specify the IPv6 address of the host to create the IPv6 Address Object<br /><br />**IP Range**<br />- **Starting Range of IP Address**: Specify the starting IP address of the range for the IPv6 Address Object.<br />- **Ending Range of IP Address**: Specify the ending IP address of the range for the IPv6 Address Object.<br /><br />**Network IP Address**<br />- **Subnet**: Specify the subdivision of an IP network.<br />- **Mask**: Specify the masking value of the IP address<br /><br />**FQDN**<br />- **Domain**: Specify the Fully Qualified Domain Name (for fqdn type) |
 
-<h3>operation: Create Address Object</h3>
+#### Output
 
-<h4>Input parameters</h4>
+The output contains the following populated JSON schema:
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Name</td><td>Specify the name of the address object to create.</td></tr>
-<tr><td>Zone</td><td>Security zone for the address object (e.g., WAN, LAN, DMZ).</td></tr>
-<tr><td>Object Type</td><td>Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.<br><strong>If you choose 'IPV4'</strong><ul><li>Address Object: Select the type of IPv4 address object you wish to create: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.</li><strong>If you choose 'Host IP Address'</strong><ul><li>IP Address: Specify the IPv4 address of the host to create the IPv4 Address Object</li></ul><strong>If you choose 'IP Range'</strong><ul><li>Starting Range of IP Address: Specify the starting IP address of the range for the IPv4 Address Object.</li><li>Ending Range of IP Address: Specify the ending IP address of the range for the IPv4 Address Object.</li></ul><strong>If you choose 'Network IP Address'</strong><ul><li>Subnet: Subnet mask (required for network type), e.g., 255.255.255.0</li><li>Mask: Specify the masking value of the IP address</li></ul></ul><strong>If you choose 'IPV6'</strong><ul><li>Address Object: Select the type of IPv6 address object you wish to create: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.</li><strong>If you choose 'Host IP Address'</strong><ul><li>IP Address: Specify the IPv6 address of the host to create the IPv6 Address Object</li></ul><strong>If you choose 'IP Range'</strong><ul><li>Starting Range of IP Address: Specify the starting IP address of the range for the IPv6 Address Object.</li><li>Ending Range of IP Address: Specify the ending IP address of the range for the IPv6 Address Object.</li></ul><strong>If you choose 'Network IP Address'</strong><ul><li>Subnet: Specify the subdivision of an IP network.</li><li>Mask: Specify the masking value of the IP address</li></ul></ul><strong>If you choose 'FQDN'</strong><ul><li>Domain: Specify the Fully Qualified Domain Name (for fqdn type)</li></ul></td></tr>
-</tbody></table>
-
-<h4>Output</h4>
-
-<p>The output contains the following populated JSON schema:</p>
-
-<pre>{
+```
+{
     "status": {
         "success": "",
         "cli": {
@@ -119,21 +111,24 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Get Address Object</h3>
+### operation: Get Address Object
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN</td></tr>
-<tr><td>Filter Address Object By</td><td>(Optional) Select filter parameters to retrieve address object configurations details by UUID or name.<br><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the address object to retrieve its information.</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the Address Object to retrieve its information</li></ul></td></tr>
-</tbody></table>
+| Parameter                | Description                                                                                                                                                                                                                                                                                                                                     |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Object Type              | Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN                                                                                                                                                                                                                  |
+| Filter Address Object By | (Optional) Select filter parameters to retrieve address object configurations details by UUID or Name.<br /><br />- **UUID**: Specify the universally unique identifier (UUID) of the address object, in the **UUID** field, to retrieve its information by UUID.<br />- **Name**: Specify the name of the Address Object, in the **Name** field, to retrieve its information by name. |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "address_objects": [
         {
             "ipv4": {
@@ -143,23 +138,26 @@
             }
         }
     ]
-}</pre>
+}
+```
 
-<h3>operation: Update Address Object</h3>
+### operation: Update Address Object
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Update Type</td><td>Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.</td></tr>
-<tr><td>Update Address Object By</td><td>Select the input option (name or UUID) to update the address object configuration.<br><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the address that you want to update the address object.</li></ul><strong>If you choose 'Name'</strong><ul><li>Address Object Name: Specify the name of the address object that you want to update the address object.</li></ul></td></tr>
-<tr><td>Object Type</td><td>Choose the object type parameters to update address object configuration based on the specified input type: IPv4, IPv6, or FQDN<br><strong>If you choose 'IPV4'</strong><ul><li>Address Object: Select the type of IPv4 address object you wish to update: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.</li><strong>If you choose 'Host IP Address'</strong><ul><li>IP Address: Specify the IPv4 address of the host to update the IPv4 Address Object</li></ul><strong>If you choose 'IP Range'</strong><ul><li>Starting Range of IP Address: Specify the starting IP address of the range for the IPv4 Address Object.</li><li>Ending Range of IP Address: Specify the ending IP address of the range for the IPv4 Address Object.</li></ul><strong>If you choose 'Network IP Address'</strong><ul><li>Subnet: Specify the subdivision of an IP network.</li><li>Mask: Specify the masking value of the IP address</li></ul></ul><strong>If you choose 'IPV6'</strong><ul><li>Address Object: Select the type of IPv6 address object you wish to update: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.</li><strong>If you choose 'Host IP Address'</strong><ul><li>IP Address: Specify the IPv6 address of the host to update the IPv6 Address Object</li></ul><strong>If you choose 'IP Range'</strong><ul><li>Starting Range of IP Address: Specify the starting IP address of the range for the IPv6 Address Object.</li><li>Ending Range of IP Address: Specify the ending IP address of the range for the IPv6 Address Object.</li></ul><strong>If you choose 'Network IP Address'</strong><ul><li>Subnet: Specify the subdivision of an IP network.</li><li>Mask: Specify the masking value of the IP address</li></ul></ul><strong>If you choose 'FQDN'</strong><ul><li>Domain: Specify the domain you wish to update within the current address object configuration.</li></ul></td></tr>
-<tr><td>Zone</td><td>Specify the specific zone within the domain, ipv4 or ipv6 that you wish to update in the address object configuration</td></tr>
-</tbody></table>
+| Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Update Type              | Select the type of update operation the user wants to perform. If the user selects **Partial Update**, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects **Full Replace**, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Update Address Object By | Select the input option (name or UUID) to update the address object configuration.<br /><br />- **UUID**: Specify the universally unique identifier (UUID) of the address object, in the **UUID** field, to update its information by UUID.<br />- **Name**: Specify the name of the Address Object, in the **Name** field, to update its information by name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Object Type              | Select one of the following object types to update the address object configuration:<br /><br />**IPV4**<br />- **Address Object**: Select the type of IPv4 address object you wish to update: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.<br /><br />**Host IP Address**<br />- **IP Address**: Specify the IPv4 address of the host to update the IPv4 Address Object<br /><br />**IP Range**<br />- **Starting Range of IP Address**: Specify the starting IP address of the range for the IPv4 Address Object.<br />- **Ending Range of IP Address**: Specify the ending IP address of the range for the IPv4 Address Object.<br /><br />**Network IP Address**<br />- **Subnet**: Subnet mask (required for network type), e.g., 255.255.255.0<br />- **Mask**: Specify the masking value of the IP address<br /><br />**IPV6**<br />- **Address Object**: Select the type of IPv6 address object you wish to update: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.<br /><br />**Host IP Address**<br />- **IP Address**: Specify the IPv6 address of the host to update the IPv6 Address Object<br /><br />**IP Range**<br />- **Starting Range of IP Address**: Specify the starting IP address of the range for the IPv6 Address Object.<br />- **Ending Range of IP Address**: Specify the ending IP address of the range for the IPv6 Address Object.<br /><br />**Network IP Address**<br />- **Subnet**: Specify the subdivision of an IP network.<br />- **Mask**: Specify the masking value of the IP address<br /><br />**FQDN**<br />- **Domain**: Specify the Fully Qualified Domain Name (for fqdn type) |
+| Zone                     | Specify the specific zone within the domain, IPv4 or IPv6 that you wish to update in the address object configuration                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "status": {
         "success": "",
         "info": [
@@ -170,21 +168,24 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Delete Address Object</h3>
+### operation: Delete Address Object
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Choose the object type parameters to delete the address object configuration dbased on the specified input type: IPv4, IPv6, or FQDN</td></tr>
-<tr><td>Delete Address Object By</td><td>Select filter parameters to delete IPV4 Address Object configurations by UUID or Name.<br><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the IPv4 Address Object</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the IPv4 Address Object</li></ul></td></tr>
-</tbody></table>
+| Parameter                | Description                                                                                                                                                                                                                                                                                    |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Object Type              | Choose the object type parameters to delete the address object configuration dbased on the specified input type: IPv4, IPv6, or FQDN                                                                                                                                                           |
+| Delete Address Object By | Select filter parameters to delete IPV4 Address Object configurations by UUID or Name.<br /><br />- **UUID**: Specify the universally unique identifier (UUID) of the address object, in the **UUID** field, to delete it by UUID.<br />- **Name**: Specify the name of the Address Object, in the **Name** field, to delete it by name. |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "status": {
         "success": "",
         "info": [
@@ -195,22 +196,25 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Create Address Group</h3>
+### operation: Create Address Group
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.</td></tr>
-<tr><td>Address Group Name</td><td>Specify the name for the address group object you want to create.</td></tr>
-<tr><td>Address Object Name</td><td>Specify the name of the address object you want to use to create an address object group.</td></tr>
-</tbody></table>
+| Parameter           | Description                                                                               |
+|---------------------|-------------------------------------------------------------------------------------------|
+| Object Type         | Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.   |
+| Address Group Name  | Specify the name for the address group object you want to create.                         |
+| Address Object Name | Specify the name of the address object you want to use to create an address object group. |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "status": {
         "success": "",
         "cli": {
@@ -228,21 +232,24 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Get Address Group</h3>
+### operation: Get Address Group
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN</td></tr>
-<tr><td>Filter Address Group By</td><td>(Optional) Select filter parameters to retrieve address groups configurations details by UUID or name.<br><strong>If you choose 'UUID'</strong><ul><li>Group UUID: Specify the universally unique identifier (UUID) of the address group to retrieve its information.</li></ul><strong>If you choose 'Name'</strong><ul><li>Group Name: Specify the name of the address group to retrieve its information</li></ul></td></tr>
-</tbody></table>
+| Parameter               | Description                                                                                                                                                                                                                                                                                                                                               |
+|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Object Type             | Select the object type to retrieve address object configuration details based on the selected object type: IPv4, IPv6, or FQDN                                                                                                                                                                                                                            |
+| Filter Address Group By | (Optional) Select filter parameters to retrieve address groups configurations details by UUID or name.<br /><br />- **UUID**: Specify the universally unique identifier (UUID) of the address group, in the **UUID** field, to retrieve the address group's configurations details by UUID.<br />- **Name**: Specify the name of the address group, in the **Name** field, to retrieve the address group's configurations details by name. |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "address_objects": [
         {
             "ipv4": {
@@ -252,22 +259,25 @@
             }
         }
     ]
-}</pre>
+}
+```
 
-<h3>operation: Update Address in Group</h3>
+### operation: Update Address in Group
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Update Type</td><td>Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.</td></tr>
-<tr><td>Object Type</td><td>Choose the object type parameters to update address object configuration based on the specified input type: IPv4, IPv6, or FQDN<br><strong>If you choose 'IPV4'</strong><ul><li>Update Address Object By: Select filter parameters based on the address object configurations you want to update by UUID or name.</li><strong>If you choose 'UUID'</strong><ul><li>Group Name: Specify the name of the address object you want to update.</li></ul><strong>If you choose 'Name'</strong><ul><li>Group Name: Specify the name of the address object based on the following field you want to update.</li></ul><li>Address Object: Select the type of IPv4 address object you wish to update: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.</li><strong>If you choose 'Host IP Address'</strong><ul><li>IP Address: Specify the IPv4 address of the host to update the IPv4 Address Object</li></ul><strong>If you choose 'IP Range'</strong><ul><li>Starting Range of IP Address: Specify the starting IP address of the range for the IPv4 Address Object.</li><li>Ending Range of IP Address: Specify the ending IP address of the range for the IPv4 Address Object.</li></ul><strong>If you choose 'Network IP Address'</strong><ul><li>Subnet: Specify the subdivision of an IP network.</li><li>Mask: Specify the masking value of the IP address</li></ul></ul><strong>If you choose 'IPV6'</strong><ul><li>Update Address Object By: Select filter parameters to update Address Object configurations by UUID or Name.</li><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the Address Object which you want to update</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the Address Object of the Address Object which you want to update</li></ul><li>Address Object: Select the type of IPv6 address object you wish to update: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.</li><strong>If you choose 'Host IP Address'</strong><ul><li>IP Address: Specify the IPv6 address of the host to update the IPv6 Address Object</li></ul><strong>If you choose 'IP Range'</strong><ul><li>Starting Range of IP Address: Specify the starting IP address of the range for the IPv6 Address Object.</li><li>Ending Range of IP Address: Specify the ending IP address of the range for the IPv6 Address Object.</li></ul><strong>If you choose 'Network IP Address'</strong><ul><li>Subnet: Specify the subdivision of an IP network.</li><li>Mask: Specify the masking value of the IP address</li></ul></ul><strong>If you choose 'FQDN'</strong><ul><li>Update Address Object By: Select filter parameters based on the address object configurations you want to update by UUID or name.</li><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the address object based on the following field you want to update.</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the address object based on the following field you want to update.</li></ul><li>Domain: Specify the domain you wish to update within the current address object configuration.</li></ul></td></tr>
-<tr><td>Zone</td><td>Specify the specific zone within the domain, ipv4 or ipv6 that you wish to update in the address object configuration</td></tr>
-</tbody></table>
+| Parameter   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Update Type | Select the type of update operation the user wants to perform. If the user selects Partial Update, only the provided fields will be updated. Any fields not included will remain unchanged. If the user selects Full Replace, the entire existing record will be replaced with the new data provided. Any fields not included in the request may be removed or reset.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Object Type | Choose the object type parameters to update address object configuration based on the specified input type: IPv4, IPv6, or FQDN  <br />**IPV4**<br /><br />*   Update Address Object By: Select filter parameters based on the address object configurations you want to update by UUID or name.<br />**UUID**<br /><br />*   Group Name: Specify the name of the address object you want to update.<br /><br />**Name**<br /><br />*   Group Name: Specify the name of the address object based on the following field you want to update.<br /><br />*   Address Object: Select the type of IPv4 address object you wish to update: a single IPv4 address for a host, a range of IPv4 addresses, or a network address for defining a subnet.<br />**Host IP Address**<br /><br />*   IP Address: Specify the IPv4 address of the host to update the IPv4 Address Object<br /><br />**IP Range**<br /><br />*   Starting Range of IP Address: Specify the starting IP address of the range for the IPv4 Address Object.<br />*   Ending Range of IP Address: Specify the ending IP address of the range for the IPv4 Address Object.<br /><br />**Network IP Address**<br /><br />*   Subnet: Specify the subdivision of an IP network.<br />*   Mask: Specify the masking value of the IP address<br /><br />**IPV6**<br /><br />*   Update Address Object By: Select filter parameters to update Address Object configurations by UUID or Name.<br />**UUID**<br /><br />*   UUID: Specify the universally unique identifier (UUID) of the Address Object which you want to update<br /><br />**Name**<br /><br />*   Name: Specify the name of the Address Object of the Address Object which you want to update<br /><br />*   Address Object: Select the type of IPv6 address object you wish to update: a single IPv6 address for a host, a range of IPv6 addresses, or a network address for defining a subnet.<br />**Host IP Address**<br /><br />*   IP Address: Specify the IPv6 address of the host to update the IPv6 Address Object<br /><br />**IP Range**<br /><br />*   Starting Range of IP Address: Specify the starting IP address of the range for the IPv6 Address Object.<br />*   Ending Range of IP Address: Specify the ending IP address of the range for the IPv6 Address Object.<br /><br />**Network IP Address**<br /><br />*   Subnet: Specify the subdivision of an IP network.<br />*   Mask: Specify the masking value of the IP address<br /><br />**FQDN**<br /><br />*   Update Address Object By: Select filter parameters based on the address object configurations you want to update by UUID or name.<br />**UUID**<br /><br />*   UUID: Specify the universally unique identifier (UUID) of the address object based on the following field you want to update.<br /><br />**Name**<br /><br />*   Name: Specify the name of the address object based on the following field you want to update.<br /><br />*   Domain: Specify the domain you wish to update within the current address object configuration. |
+| Zone        | Specify the specific zone within the domain, ipv4 or ipv6 that you wish to update in the address object configuration                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "status": {
         "success": "",
         "info": [
@@ -278,21 +288,24 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Delete Address From Group</h3>
+### operation: Delete Address From Group
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Choose the object type parameters to delete the address object configuration based on the specified input type: IPv4, IPv6, or FQDN</td></tr>
-<tr><td>Delete Address Object By</td><td>Select filter parameters to delete IPV4 Address Object configurations by UUID or Name.<br><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the IPv4 Address Object</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the IPv4 Address Object</li></ul></td></tr>
-</tbody></table>
+| Parameter                | Description                                                                                                                                                                                                                                                                    |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Object Type              | Choose the object type parameters to delete the address object configuration based on the specified input type: IPv4, IPv6, or FQDN                                                                                                                                            |
+| Delete Address Object By | Select filter parameters to delete IPV4 Address Object configurations by UUID or Name.<br /><br />- **UUID**: Specify the universally unique identifier (UUID) of the address object, in the **UUID** field, to delete it by UUID.<br />- **Name**: Specify the name of the Address Object, in the **Name** field, to delete it by name. |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "status": {
         "success": "",
         "info": [
@@ -303,22 +316,25 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Add Address Object to Group</h3>
+### operation: Add Address Object to Group
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Select the object type to add the address object to the specified group.</td></tr>
-<tr><td>Filter Address Group By</td><td>(Optional) Select filter parameters to fetch the address group configurations details by UUID or name.<br><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the group object to retrieve its information.</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the address group to retrieve its information</li></ul></td></tr>
-<tr><td>Address Object Name</td><td>Name of the address object to add to the specified group.</td></tr>
-</tbody></table>
+| Parameter               | Description                                                                                                                                                                                                                                                                                                                                |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Object Type             | Select the object type to add the address object to the specified group.                                                                                                                                                                                                                                                                   |
+| Filter Address Group By | (Optional) Select filter parameters to fetch the address group configurations details by UUID or name.<br /><br />- **UUID**: Specify the universally unique identifier (UUID) of the address object, in the **UUID** field, to delete it by UUID.<br />- **Name**: Specify the name of the Address Object, in the **Name** field, to delete it by name. |
+| Address Object Name     | Name of the address object to add to the specified group.                                                                                                                                                                                                                                                                                  |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains the following populated JSON schema:</p>
+The output contains the following populated JSON schema:
 
-<pre>{
+```
+{
     "status": {
         "success": "",
         "cli": {
@@ -336,36 +352,38 @@
             }
         ]
     }
-}</pre>
+}
+```
 
-<h3>operation: Remove Address Object from Group</h3>
+### operation: Remove Address Object from Group
 
-<h4>Input parameters</h4>
+#### Input parameters
 
-<table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Object Type</td><td>Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.</td></tr>
-<tr><td>Filter Address Group By</td><td>(Optional) Select filter parameters to fetch the address group configurations details by UUID or name.<br><strong>If you choose 'UUID'</strong><ul><li>UUID: Specify the universally unique identifier (UUID) of the group object to retrieve its information.</li></ul><strong>If you choose 'Name'</strong><ul><li>Name: Specify the name of the address group to retrieve its information</li></ul></td></tr>
-<tr><td>Address Object Name</td><td>Name of the address object to add to the group.</td></tr>
-</tbody></table>
+| Parameter               | Description                                                                                                                                                                                                                                                                                                                                |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Object Type             | Select the object type to create the address object configuration: IPv4, IPv6, or FQDN.                                                                                                                                                                                                                                                    |
+| Filter Address Group By | (Optional) Select filter parameters to fetch the address group configurations details by UUID or name.  <br>**UUID**<br><br>*   UUID: Specify the universally unique identifier (UUID) of the group object to retrieve its information.<br><br>**Name**<br><br>*   Name: Specify the name of the address group to retrieve its information |
+| Address Object Name     | Name of the address object to add to the group.                                                                                                                                                                                                                                                                                            |
 
-<h4>Output</h4>
+#### Output
 
-<p>The output contains a non-dictionary value.</p>
+The output contains a non-dictionary value.
 
-<h2>Included playbooks</h2>
+## Included playbooks
 
-<p>The <code>Sample - SonicWall Firewall - 1.1.0</code> playbook collection comes bundled with the SonicWall Firewall connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the <strong>Automation</strong> &gt; <strong>Playbooks</strong> section in FortiSOAR&trade; after importing the SonicWall Firewall connector.</p>
+The *`Sample - SonicWall Firewall - 1.1.0`* playbook collection comes bundled with the SonicWall Firewall connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR™ after importing the SonicWall Firewall connector.
 
-<ul>
-<li>Add Address Object to Group</li>
-<li>Create Address Group</li>
-<li>Create Address Object</li>
-<li>Delete Address From Group</li>
-<li>Delete Address Object</li>
-<li>Get Address Group</li>
-<li>Get Address Object</li>
-<li>Remove Address Object from Group</li>
-<li>Update Address Object</li>
-<li>Update Address in Group</li>
-</ul>
+- Add Address Object to Group
+- Create Address Group
+- Create Address Object
+- Delete Address From Group
+- Delete Address Object
+- Get Address Group
+- Get Address Object
+- Remove Address Object from Group
+- Update Address Object
+- Update Address in Group
 
-<p><strong>Note</strong>: If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection since the sample playbook collection gets deleted during connector upgrade and delete.</p>
+>[!Note]
+>
+>If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection since the sample playbook collection gets deleted during connector upgrade and delete.
