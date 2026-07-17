@@ -291,7 +291,9 @@ def commit_changes(client):
 
 def get_endpoint(params, endpoint_path):
     object_type = params.get('object_type', '').lower()
-    endpoint = f'/{endpoint_path}/{object_type}'
+    endpoint = endpoint_path
+    if object_type:
+        endpoint = f'/{endpoint}/{object_type}'
     name = params.get('name')
     uuid = params.get('uuid')
     if uuid:
@@ -324,7 +326,7 @@ def create_address_object_configuration(client, params):
     payload = get_payload(params)
     object_type = params.get('object_type', '').lower()
     endpoint = f'/address-objects/{object_type}'
-    resp = client.make_api_call(endpoint, method='POST', payload= json.dumps(payload))
+    resp = client.make_api_call(endpoint, method='POST', payload=json.dumps(payload))
     if not commit_changes(client):
         raise ConnectorError("Failed to commit changes")
     return resp
@@ -362,7 +364,6 @@ def delete_address_object_configuration(client, params):
 
 def get_address_group(client, params):
     """Retrieves one or all address groups."""
-    logger.info("Invoking get_address_group action")
     endpoint = get_endpoint(params, endpoint_path='address-groups')
     if not start_firewall_management_session(client):
         raise ConnectorError('Failed to start firewall management session')
@@ -373,7 +374,6 @@ def get_address_group(client, params):
 
 
 def create_address_group(client, params):
-    logger.info("Invoking create_address_group action")
     if not start_firewall_management_session(client):
         raise ConnectorError('Failed to start firewall management session')
 
@@ -389,7 +389,6 @@ def create_address_group(client, params):
 
 
 def update_address_group(client, params):
-    logger.info("Invoking update_address_group action")
     if not start_firewall_management_session(client):
         raise ConnectorError('Failed to start firewall management session')
 
@@ -406,7 +405,6 @@ def update_address_group(client, params):
 
 
 def delete_address_group(client, params):
-    logger.info("Invoking delete_address_group action")
     if not start_firewall_management_session(client):
         raise ConnectorError('Failed to start firewall management session')
 
@@ -422,7 +420,6 @@ def delete_address_group(client, params):
 
 def add_address_object_to_group(client, params):
     """Adds an existing address object to an address group."""
-    logger.info("Invoking add_address_object_to_group action")
     if not start_firewall_management_session(client):
         raise ConnectorError('Failed to start firewall management session')
 
@@ -480,7 +477,6 @@ def add_address_object_to_group(client, params):
 
 def remove_address_object_from_group(client, params):
     """Removes an address object from an address group."""
-    logger.info("Invoking remove_address_object_from_group action")
     if not start_firewall_management_session(client):
         raise ConnectorError('Failed to start firewall management session')
 
@@ -534,6 +530,316 @@ def remove_address_object_from_group(client, params):
     }
 
 
+def _build_uri_list_object_body(params, outer_key=None, inner_key=None):
+    raw_payload = params.pop("raw_payload", None)
+    if raw_payload:
+        return raw_payload
+    entry_type = params.pop("entry_type", "domain").lower()
+    params['type'] = entry_type
+    entries = params.pop("entries", [])
+    entries = _convert_str_to_list(entries)
+    params[entry_type] = [{entry_type: entry.strip()} for entry in _convert_str_to_list(entries)]
+    payload = {outer_key: {inner_key: [params]}}
+    return payload
+
+
+def _get_uri_object_data(client, params):
+    if not start_firewall_management_session(client):
+        raise ConnectorError("Failed to start firewall management session")
+
+    if not change_config_mode(client):
+        raise ConnectorError("Failed to switch config mode")
+
+    entry_type = params.get("entry_type", "").lower()
+    entries = params.get("entries") or []
+    entries = _convert_str_to_list(entries)
+    endpoint = get_endpoint(params, endpoint_path="/content-filter/uri-list-objects")
+    uri_object = client.make_api_call(endpoint, method="GET")
+    uri_list = uri_object.get("content_filter", {}).get("uri_list_object", [{}])
+    uri_data = uri_list[0] if uri_list else {}
+    return endpoint, uri_object, uri_data, entry_type, entries
+
+
+def add_entries_to_uri_object_list(client, params):
+    """Adding entries into provided uri object and entry type."""
+    endpoint, uri_object, uri_data, entry_type, entries = _get_uri_object_data(client, params)
+    existing_members = uri_data.get(entry_type, [])
+
+    # Get existing entries from the URI object
+    existing_entries = {member.get(entry_type) for member in existing_members if isinstance(member, dict)}
+
+    # If the entry is not present in the existing_members list, add it.
+    existing_members.extend({entry_type: entry} for entry in entries if entry not in existing_entries)
+
+    uri_data[entry_type] = existing_members
+    resp = client.make_api_call(endpoint, method="PUT", payload=json.dumps(uri_object))
+    if not commit_changes(client):
+        raise ConnectorError("Failed to commit changes")
+    return resp
+
+
+def remove_entries_from_uri_object_list(client, params):
+    """Removing entries from provided uri object and entry type."""
+    endpoint, uri_object, uri_data, entry_type, entries = _get_uri_object_data(client, params)
+    entries_to_remove = set(entries)
+    # removed entries from existing uri object
+    uri_data[entry_type] = [member for member in uri_data.get(entry_type, []) if
+                            member.get(entry_type) not in entries_to_remove]
+    return client.make_api_call(endpoint, method="PUT", payload=json.dumps(uri_object))
+
+
+def _convert_str_to_list(members):
+    if members and isinstance(members, str):
+        members = members.replace("\n", ",")
+        return [member.strip() for member in members.split(",") if member.strip()]
+    return members or []
+
+
+def _build_uri_list_group_body(params):
+    raw_payload = params.get("raw_payload")
+    if raw_payload:
+        return raw_payload
+    object_members = _convert_str_to_list(params.get("object_members"))
+    group_members = _convert_str_to_list(params.get("group_members"))
+    payload = {"content_filter": {"uri_list_group": [{"name": params.get("name"), **(
+        {"uri_list_object": [{"name": m} for m in object_members]} if object_members else {}), **(
+        {"uri_list_group": [{"name": m} for m in group_members]} if group_members else {}), }]}}
+    return payload
+
+
+def _update_members(existing_members, members, add=True):
+    """Adding or removing members from provided existing_members."""
+    if add:
+        existing_names = {member.get("name") for member in existing_members if isinstance(member, dict)}
+        existing_members.extend({"name": member} for member in members if member not in existing_names)
+        return existing_members
+
+    members_to_remove = set(members)
+    return [member for member in existing_members if member.get("name") not in members_to_remove]
+
+
+def _build_cfs_profile_body(params):
+    profile_name = params.get("name")
+    allowed_list = _convert_str_to_list(params.get("allowed_uri_list")) or []
+    forbidden_list = _convert_str_to_list(params.get("forbidden_uri_list")) or []
+    additional_json = params.get("settings") or {}
+
+    profile = {
+        "name": profile_name,
+        "uri_list": {
+            "allowed": [{"name": item} for item in allowed_list],
+            "forbidden": [{"name": item} for item in forbidden_list],
+        },
+    }
+    if isinstance(additional_json, dict):
+        profile.update(additional_json)
+
+    return {
+        "content_filter": {
+            "profile": [profile]
+        }
+    }
+
+
+def _cfs_profile_request(client, params, method, endpoint):
+    """Execute a CFS profile API request."""
+    if not start_firewall_management_session(client):
+        raise ConnectorError("Failed to start firewall management session")
+
+    if not change_config_mode(client):
+        raise ConnectorError("Failed to switch config mode")
+
+    payload = _build_cfs_profile_body(params)
+
+    resp = client.make_api_call(
+        endpoint,
+        method=method,
+        payload=json.dumps(payload)
+    )
+
+    if not commit_changes(client):
+        raise ConnectorError("Failed to commit changes")
+
+    return resp
+
+
+def create_cfs_profile(client, params):
+    """Create a new content filter profile."""
+    return _cfs_profile_request(client=client, params=params, method="POST", endpoint="/content-filter/profiles")
+
+
+def update_cfs_profile(client, params):
+    """Patch a content filter profile configuration."""
+    return _cfs_profile_request(client=client, params=params, method="PATCH",
+                                endpoint=get_endpoint(params, endpoint_path="/content-filter/profiles"))
+
+
+def _execute_get_delete_request(client, params, endpoint_path, method, commit=False):
+    """Execute a Content Filter API request."""
+    if not start_firewall_management_session(client):
+        raise ConnectorError("Failed to start firewall management session")
+
+    if not change_config_mode(client):
+        raise ConnectorError("Failed to switch config mode")
+
+    endpoint = get_endpoint(params, endpoint_path=endpoint_path)
+    resp = client.make_api_call(endpoint, method=method)
+    if commit:
+        if not commit_changes(client):
+            raise ConnectorError("Failed to commit changes")
+
+    return resp
+
+
+def get_uri_object_list(client, params):
+    """Retrieve one or all URI list objects."""
+    return _execute_get_delete_request(client, params, "/content-filter/uri-list-objects", "GET")
+
+
+def delete_uri_object_list(client, params):
+    """Deleting the provided uri object."""
+    return _execute_get_delete_request(client, params, "/content-filter/uri-list-objects", "DELETE", commit=True)
+
+
+def get_uri_list_group(client, params):
+    """Retrieve content filter URI list group object configuration"""
+    return _execute_get_delete_request(client, params, "/content-filter/uri-list-groups", "GET")
+
+
+def delete_uri_list_group(client, params):
+    """Deleting the provided uri object."""
+    return _execute_get_delete_request(client, params, "/content-filter/uri-list-groups", method='DELETE', commit=True)
+
+
+def get_cfs_action(client, params):
+    """Retrieve content filter action object configuration"""
+    return _execute_get_delete_request(client, params, "/content-filter/actions", "GET")
+
+
+def delete_cfs_action(client, params):
+    """Delete a content filter action object"""
+    return _execute_get_delete_request(client, params, "/content-filter/actions", "DELETE", commit=True)
+
+
+def get_cfs_profile(client, params):
+    """Retrieve content filter profile object configuration"""
+    return _execute_get_delete_request(client, params, "/content-filter/profiles", "GET")
+
+
+def delete_cfs_profile(client, params):
+    """Delete a content filter profile object"""
+    return _execute_get_delete_request(client, params, "/content-filter/profiles", "DELETE", commit=True)
+
+
+def _execute_request(client, endpoint, method, payload=None, commit=False):
+    """Execute a Content Filter API request."""
+    if not start_firewall_management_session(client):
+        raise ConnectorError("Failed to start firewall management session")
+
+    if not change_config_mode(client):
+        raise ConnectorError("Failed to switch config mode")
+
+    resp = client.make_api_call(
+        endpoint,
+        method=method,
+        payload=json.dumps(payload) if payload is not None else None,
+    )
+    if commit and not commit_changes(client):
+        raise ConnectorError("Failed to commit changes")
+
+    return resp
+
+
+def _build_content_filter_action_payload(params):
+    """Build payload for Content Filter Action APIs."""
+    settings = params.get("settings")
+    if isinstance(settings, dict):
+        return {"content_filter": {"action": [{"name": params.get("name"), **settings}]}}
+    if isinstance(settings, list):
+        return {"content_filter": {"action": settings}}
+    return {}
+
+
+def create_uri_object_list(client, params):
+    """Create a new content filter URI list object"""
+    return _execute_request(
+        client=client,
+        endpoint="/content-filter/uri-list-objects",
+        method="POST",
+        payload=_build_uri_list_object_body(params, "content_filter", inner_key='uri_list_object'),
+        commit=True
+    )
+
+
+def create_uri_group(client, params):
+    """Create a new content filter URI list group object"""
+    return _execute_request(
+        client=client,
+        endpoint="/content-filter/uri-list-groups",
+        method="POST",
+        payload=_build_uri_list_group_body(params),
+        commit=True
+    )
+
+
+def _build_update_uri_list_group_payload(client, endpoint, params):
+    """Build payload for Content Filter Update URIList Group APIs."""
+    payload = params.get("raw_payload")
+    if not payload:
+        uri_group = _execute_request(
+            client=client,
+            endpoint=endpoint,
+            method="GET"
+
+        )
+        content_filter = uri_group.get("content_filter", {})
+        add = params.get("action") == "Add Entries to Group List"
+        object_members = (_convert_str_to_list(params.get("object_members")) or [])
+        group_members = (_convert_str_to_list(params.get("group_members")) or [])
+        if content_filter and content_filter.get("uri_list_group", []):
+            list_object = content_filter["uri_list_group"][0]
+            list_object['uri_list_object'] = _update_members(list_object['uri_list_object'], object_members, add)
+        if content_filter and content_filter["uri_list_group"]:
+            list_group = content_filter["uri_list_group"][0]
+            list_group['uri_list_group'] = _update_members(list_group['uri_list_group'], group_members, add)
+        payload = {"content_filter": content_filter}
+    return payload
+
+
+def update_uri_list_group(client, params):
+    """Update content filter URI list group object configuration."""
+    endpoint = get_endpoint(params, endpoint_path="/content-filter/uri-list-groups")
+    return _execute_request(
+        client=client,
+        endpoint=endpoint,
+        method="PUT",
+        payload=_build_update_uri_list_group_payload(client, endpoint, params),
+        commit=True
+    )
+
+
+def create_cfs_action(client, params):
+    """Create a new content filter action object"""
+    return _execute_request(
+        client=client,
+        endpoint="/content-filter/actions",
+        method="POST",
+        payload=_build_content_filter_action_payload(params),
+        commit=True
+    )
+
+
+def update_cfs_action(client, params):
+    """Patch content filter action object configuration"""
+    return _execute_request(
+        client=client,
+        endpoint=get_endpoint(params, endpoint_path="/content-filter/actions"),
+        method="PATCH",
+        payload=_build_content_filter_action_payload(params),
+        commit=True
+    )
+
+
 operations = {
     'get_address_object_configuration': get_address_object_configuration,
     'create_address_object_configuration': create_address_object_configuration,
@@ -545,4 +851,22 @@ operations = {
     'delete_address_group': delete_address_group,
     'add_address_object_to_group': add_address_object_to_group,
     'remove_address_object_from_group': remove_address_object_from_group,
+    # URL Related operations
+    'create_uri_object_list': create_uri_object_list,
+    'get_uri_object_list': get_uri_object_list,
+    'add_entries_to_uri_object_list': add_entries_to_uri_object_list,
+    'remove_entries_from_uri_object_list': remove_entries_from_uri_object_list,
+    'delete_uri_object_list': delete_uri_object_list,
+    'create_uri_group': create_uri_group,
+    'get_uri_list_group': get_uri_list_group,
+    'update_uri_list_group': update_uri_list_group,
+    'delete_uri_list_group': delete_uri_list_group,
+    'create_cfs_action': create_cfs_action,
+    'get_cfs_action': get_cfs_action,
+    'update_cfs_action': update_cfs_action,
+    'delete_cfs_action': delete_cfs_action,
+    'create_cfs_profile': create_cfs_profile,
+    'get_cfs_profile': get_cfs_profile,
+    'update_cfs_profile': update_cfs_profile,
+    'delete_cfs_profile': delete_cfs_profile
 }

@@ -1,7 +1,7 @@
 {
   "name": "sonicwall-firewall",
   "label": "SonicWall Firewall",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "category": "Firewall and Network Protection",
   "description": "SonicWall's advanced firewall appliances with various network and security systems. This connector facilitates seamless communication and data exchange between the SonicWall Firewall and other network elements, providing enhanced security, management, and monitoring capabilities",
   "cs_approved": false,
@@ -10,7 +10,7 @@
   "publisher": "Fortinet",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
-  "help_online": "https://github.com/fortinet-fortisoar/connector-sonicwall-firewall/blob/release/1.1.0/docs/SonicWallFirewallDoc.md",
+  "help_online": "",
   "configuration": {
     "fields": [
       {
@@ -1486,6 +1486,1096 @@
         }
       ],
       "enabled": true
+    },
+    {
+      "operation": "create_uri_object_list",
+      "title": "Create URI Object List",
+      "category": "investigation",
+      "annotation": "create_uri_object_list",
+      "description": "Create a new content filter URI list object containing domain, URI, or keyword entries.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Specify a unique name for the URI List object that you want to create.",
+          "tooltip": "Specify a unique name for the URI List object that you want to create."
+        },
+        {
+          "title": "Entry Type",
+          "name": "entry_type",
+          "type": "select",
+          "options": [
+            "Domain",
+            "URI",
+            "Keyword"
+          ],
+          "value": "Domain",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Select the type of entries you want to store.",
+          "tooltip": "Select the type of entries you want to store."
+        },
+        {
+          "title": "Entries",
+          "name": "entries",
+          "type": "textarea",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Specify a comma-separated list of entries that you want to store in this URI List object at the time of creation. For example, domains such as example.com and *.example.com.",
+          "tooltip": "Specify a comma-separated list of entries that you want to store in this URI List object at the time of creation. For example, domains such as example.com and *.example.com."
+        },
+        {
+          "title": "Raw Payload Override",
+          "name": "raw_payload",
+          "type": "json",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "tooltip": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one.",
+          "description": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one."
+        }
+      ]
+    },
+    {
+      "operation": "get_uri_object_list",
+      "title": "Get URI Object List",
+      "category": "investigation",
+      "annotation": "get_uri_list_object",
+      "description": "Retrieve a content filter URI list object by name or UUID. Leave the name or UUID blank to list all URI list objects.",
+      "output_schema": {
+        "content_filter": {
+          "uri_list_object": [
+            {
+              "name": "",
+              "uuid": "",
+              "type": "",
+              "uri": [
+                {
+                  "uri": ""
+                }
+              ],
+              "domain": [
+                {
+                  "domain": ""
+                }
+              ],
+              "keyword": [
+                {
+                  "keyword": ""
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Filter URI Object By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "(Optional) Select filter parameters to retrieve URI object configurations details by UUID or Name.",
+          "tooltip": "Select filter parameters to retrieve URI object configurations details by UUID or Name.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the URI object configuration to retrieve its information.",
+                "description": "Specify the universally unique identifier (UUID) of the URI object configuration to retrieve its information.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the URI object configuration to retrieve its information.",
+                "description": "Specify the name of the URI object configuration to retrieve its information.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "operation": "add_entries_to_uri_object_list",
+      "title": "Add Entries to URI Object List",
+      "category": "investigation",
+      "annotation": "add_entries_to_uri_object_list",
+      "description": "Add entries to the configuration of the existing URI list object",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Entry Type",
+          "name": "entry_type",
+          "type": "select",
+          "options": [
+            "Domain",
+            "URI",
+            "Keyword"
+          ],
+          "value": "Domain",
+          "description": "Select the type of entry you want to update",
+          "tooltip": "Select the type of entry you want to update",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Update URI Object By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "(Optional) Update the URI object list configurations based on the provided input parameter, either name or UUID.",
+          "tooltip": "Update the URI object list configurations based on the provided input parameter, either name or UUID.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the URI object configuration that you want to update.",
+                "description": "Specify the universally unique identifier (UUID) of the URI object configuration that you want to update.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "textarea",
+                "tooltip": "Specify the name of the URI object configuration that you want to update.",
+                "description": "Specify the name of the URI object configuration that you want to update.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Entries",
+          "name": "entries",
+          "type": "textarea",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Provide a CSV list of entries which you want to add to existing URI list Object's configuration."
+        },
+        {
+          "title": "Raw Payload Override",
+          "name": "raw_payload",
+          "type": "json",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "remove_entries_from_uri_object_list",
+      "title": "Remove Entries from URI Object List",
+      "category": "investigation",
+      "annotation": "remove_entries_from_uri_object_list",
+      "description": "Remove entries from the specified URI list object's configuration.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Entry Type",
+          "name": "entry_type",
+          "type": "select",
+          "options": [
+            "Domain",
+            "URI",
+            "Keyword"
+          ],
+          "value": "Domain",
+          "description": "Select the type of entry you want to update.",
+          "tooltip": "Select the type of entry you want to update.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Update URI Object By",
+          "name": "filter_object_by",
+          "type": "select",
+          "description": "(Optional) Update the URI object list configurations based on the provided input parameter, either name or UUID.",
+          "tooltip": "Update the URI object list configurations based on the provided input parameter, either name or UUID.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the URI object configuration that you want to update.",
+                "description": "Specify the universally unique identifier (UUID) of the URI object configuration that you want to update.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the URI object configuration that you want to update.",
+                "description": "Specify the name of the URI object configuration that you want to update.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Entries",
+          "name": "entries",
+          "type": "textarea",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Provide a CSV list of entries which you want to remove from existing URI list Object's configuration."
+        },
+        {
+          "title": "Raw Payload Override",
+          "name": "raw_payload",
+          "type": "json",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "tooltip": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one.",
+          "description": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one."
+        }
+      ]
+    },
+    {
+      "operation": "delete_uri_object_list",
+      "title": "Delete URI Object List",
+      "category": "investigation",
+      "description": "Delete the specified URI list object's configuration.",
+      "annotation": "delete_uri_object_list",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Delete URI Object By",
+          "name": "delete_object_by",
+          "type": "select",
+          "description": "(Optional) Delete URI object configuration details by UUID or name.",
+          "tooltip": "Delete URI object configuration details by UUID or name.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "SSpecify the universally unique identifier (UUID) of the URI object configuration that you want to delete.",
+                "description": "Specify the universally unique identifier (UUID) of the URI object configuration that you want to delete.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the URI object configuration that you want to delete.",
+                "description": "Specify the name of the URI object configuration that you want to delete.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "operation": "create_uri_group",
+      "title": "Create URI List Group",
+      "category": "investigation",
+      "annotation": "create_uri_list_group",
+      "description": "Create a new content filter URI list group object.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Specify the name of the URI List Group you want to create.",
+          "tooltip": "Specify the name of the URI List Group you want to create."
+        },
+        {
+          "title": "URI List Object Members",
+          "name": "object_members",
+          "type": "text",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Provide a CSV list of URI object names that you want to add when creating a URI List Group.",
+          "tooltip": "Provide a CSV list of URI object names that you want to add when creating a URI List Group."
+        },
+        {
+          "title": "URI List Group Members",
+          "name": "group_members",
+          "type": "text",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "description": "Provide a CSV list of URI List Group names that you want to add when creating a URI List Group."
+        },
+        {
+          "title": "Raw Payload Override",
+          "name": "raw_payload",
+          "type": "json",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "get_uri_list_group",
+      "title": "Get URI Group List",
+      "category": "investigation",
+      "annotation": "get_uri_list_group",
+      "description": "Retrieve a URI List Group by name. Leave name or uuid blank to list all URI List Groups.",
+      "output_schema": {
+        "content_filter": {
+          "uri_list_group": [
+            {
+              "name": "",
+              "uuid": "",
+              "uri_list_object": [
+                {
+                  "name": ""
+                }
+              ],
+              "uri_list_group": [
+                {
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Filter URI Group By",
+          "name": "filter_group_by",
+          "type": "select",
+          "description": "(Optional) Select filter parameters to retrieve URI List Group details by UUID or name.",
+          "tooltip": "Select filter parameters to retrieve URI List Group details by UUID or name.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) to retrieve the URI List Group details.",
+                "description": "Specify the universally unique identifier (UUID) to retrieve the URI List Group details.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the URL List Group to retrieve its details.",
+                "description": "Specify the name of the URL List Group to retrieve its details.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "operation": "update_uri_list_group",
+      "title": "Update URI Group List",
+      "category": "investigation",
+      "annotation": "update_uri_list_group",
+      "description": "Update a membership(Add/Remove) of an existing URI List Group.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Update URI Group By",
+          "name": "filter_group_by",
+          "type": "select",
+          "description": "(Optional) Select the UUID parameter name of the group list that you want to update.",
+          "tooltip": "Select the UUID or name of the group list that you want to update.",
+          "visible": true,
+          "editable": true,
+          "required": false,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the group list that you want to update.",
+                "description": "Specify the universally unique identifier (UUID) of the group list that you want to update.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the group list that you want to update.",
+                "description": "Specify the name of the group list that you want to update.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        },
+        {
+          "title": "Perform Action",
+          "name": "action",
+          "type": "select",
+          "tooltip": "Specify the URI list object member in the group list that you want to update.",
+          "description": "Specify the URI list object member in the group list that you want to update.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "options": [
+            "Add Entries to Group List",
+            "Remove Entries from Group List"
+          ]
+        },
+        {
+          "title": "URI List Object Members",
+          "name": "object_members",
+          "type": "text",
+          "tooltip": "Specify the URI list object member in the group list that you want to update.",
+          "description": "Specify the URI list object member in the group list that you want to update.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "URI List Group Members",
+          "name": "group_members",
+          "tooltip": "Specify the URI list Group member in the group list that you want to update.",
+          "description": "Specify the URI list Group member in the group list that you want to update.",
+          "type": "text",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Raw Payload Override",
+          "name": "raw_payload",
+          "type": "json",
+          "tooltip": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one.",
+          "description": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "delete_uri_list_group",
+      "title": "Delete URI Group List",
+      "category": "investigation",
+      "annotation": "delete_uri_list_group",
+      "description": "Delete a specified content filter URI list group object.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Delete URI Group By",
+          "name": "filter_group_by",
+          "type": "select",
+          "description": "(Optional) Select the UUID or name of the group list you want to delete.",
+          "tooltip": "Select the UUID or name of the group list you want to delete.",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "options": [
+            "UUID",
+            "Name"
+          ],
+          "value": "Name",
+          "onchange": {
+            "UUID": [
+              {
+                "title": "UUID",
+                "name": "uuid",
+                "type": "text",
+                "tooltip": "Specify the universally unique identifier (UUID) of the group list you want to delete.",
+                "description": "Specify the universally unique identifier (UUID) of the group list you want to delete.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ],
+            "Name": [
+              {
+                "title": "Name",
+                "name": "name",
+                "type": "text",
+                "tooltip": "Specify the name of the group list that you want to delete.",
+                "description": "Specify the name of the group list that you want to delete.",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "operation": "create_cfs_action",
+      "title": "Create CFS Action Object",
+      "category": "investigation",
+      "annotation": "create_cfs_action",
+      "description": "Create a Content Filter (CFS) Action Object defining what happens when a policy match occurs (block/confirm/passphrase/BWM). Provide the full object body as JSON since action objects have many optional nested settings.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS action object you want to create.",
+          "tooltip": "Specify the name of the CFS action object you want to create.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Action Settings (JSON)",
+          "name": "settings",
+          "type": "json",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "tooltip": "Specify the CFS action settings (block page, passphrase, confirmation, bandwidth management, etc.) in JSON format, matching your firmware's schema.",
+          "description": "Specify the CFS action settings (block page, passphrase, confirmation, bandwidth management, etc.) in JSON format, matching your firmware's schema."
+        }
+      ]
+    },
+    {
+      "operation": "get_cfs_action",
+      "title": "Get CFS Action Object",
+      "category": "investigation",
+      "annotation": "get_cfs_action",
+      "description": "Retrieve a CFS Action Object by name. Leave name blank to list all CFS Action Objects.",
+      "output_schema": {
+        "content_filter": {
+          "action": [
+            {
+              "name": "",
+              "uuid": "",
+              "wipe_cookies": "",
+              "flow_reporting": "",
+              "block": {
+                "page": {}
+              },
+              "passphrase": {
+                "page": {},
+                "password": "",
+                "active_time": ""
+              },
+              "confirm": {
+                "page": {},
+                "active_time": ""
+              },
+              "bandwidth_management": {
+                "aggregation_method": "",
+                "egress": {
+                  "name": ""
+                },
+                "ingress": {
+                  "name": ""
+                },
+                "usage_tracking": ""
+              }
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS action object whose information you want to retrieve. Leave name blank to list all CFS Action Objects.",
+          "tooltip": "Specify the name of the CFS action object whose information you want to retrieve. Leave name blank to list all CFS Action Objects.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "update_cfs_action",
+      "title": "Update CFS Action Object",
+      "category": "investigation",
+      "description": "Update the specified CFS Action Object configuration based on the provided input parameters.",
+      "annotation": "update_cfs_action",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS action object you want to update.",
+          "tooltip": "Specify the name of the CFS action object you want to update.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Action Settings (JSON)",
+          "name": "settings",
+          "type": "json",
+          "tooltip": "Specify the CFS action settings object schema (block page, passphrase, confirmation, bandwidth management, etc.) in JSON format to update its fields.",
+          "description": "Specify the CFS action settings object schema (block page, passphrase, confirmation, bandwidth management, etc.) in JSON format to update its fields.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "delete_cfs_action",
+      "title": "Delete CFS Action Object",
+      "category": "investigation",
+      "description": "Delete a CFS Action Object by name",
+      "annotation": "delete_cfs_action",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS action object you want to delete.",
+          "tooltip": "Specify the name of the CFS action object you want to delete.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "create_cfs_profile",
+      "title": "Create CFS Profile Object",
+      "category": "investigation",
+      "annotation": "create_cfs_profile",
+      "description": "Create a Content Filter (CFS) Profile Object. At minimum lets you bind Allowed/Forbidden URI Lists; pass additional category/advanced settings via JSON.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Profile Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS Profile Object that you want to create.",
+          "tooltip": "Specify the name of the CFS Profile Object that you want to create.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Allowed URI List Object/Group",
+          "name": "allowed_uri_list",
+          "type": "text",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "description": "Specify the name of an existing URI List Object or Group to use as the Allowed list.",
+          "tooltip": "Specify the name of an existing URI List Object or Group to use as the Allowed list."
+        },
+        {
+          "title": "Forbidden URI List Object/Group",
+          "name": "forbidden_uri_list",
+          "type": "text",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "tooltip": "Specify the name of an existing URI List Object or Group to use as the Forbidden list.",
+          "description": "Specify the name of an existing URI List Object or Group to use as the Forbidden list."
+        },
+        {
+          "title": "Additional Settings (JSON)",
+          "name": "settings",
+          "type": "json",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "tooltip": "Specify additional profile settings in JSON format (category actions, search order, consent, etc.) that are required to create a CFS profile object.",
+          "description": "Specify additional profile settings in JSON format (category actions, search order, consent, etc.) that are required to create a CFS profile object."
+        }
+      ]
+    },
+    {
+      "operation": "get_cfs_profile",
+      "title": "Get CFS Profile Object",
+      "category": "investigation",
+      "annotation": "get_cfs_profile",
+      "description": "Retrieve a CFS Profile Object by name. Leave name blank to list all CFS Profile Objects.",
+      "output_schema": {
+        "content_filter": {
+          "profile": [
+            {
+              "name": "",
+              "uuid": "",
+              "uri_list": {
+                "allowed": [
+                  {
+                    "name": ""
+                  }
+                ],
+                "forbidden": [
+                  {
+                    "name": ""
+                  }
+                ],
+                "search_order": "",
+                "forbidden_operation": ""
+              },
+              "category": [
+                {
+                  "name": "",
+                  "operation": ""
+                }
+              ],
+              "categories": "",
+              "https_filtering": "",
+              "smart_filter": "",
+              "safe_search": "",
+              "threat_api": "",
+              "google_force_safe_search": "",
+              "youtube_restrict_mode": "",
+              "bing_force_safe_search": "",
+              "consent": {
+                "required": "",
+                "user_idle_timeout": "",
+                "optional": {
+                  "page_url": ""
+                },
+                "mandatory": {
+                  "page_url": "",
+                  "address": {}
+                }
+              },
+              "custom_header": {
+                "insertion": "",
+                "entry": [
+                  {
+                    "domain": "",
+                    "key": "",
+                    "value": ""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "description": "Specify the name of the CFS Profile Object for which you want to retrieve detailed information.",
+          "tooltip": "Specify the name of the CFS Profile Object for which you want to retrieve detailed information.",
+          "type": "text",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "update_cfs_profile",
+      "title": "Update CFS Profile Object",
+      "category": "investigation",
+      "annotation": "update_cfs_profile",
+      "description": "Updates a Content Filter (CFS) Profile Object. At minimum lets you bind Allowed/Forbidden URI Lists; pass additional category/advanced settings via JSON.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS Profile object that you want to update.",
+          "tooltip": "Specify the name of the CFS Profile object that you want to update.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Allowed URI List Object/Group",
+          "name": "allowed_uri_list",
+          "type": "text",
+          "description": "Specify the name of a URI List Object or Group to update in the Allowed list.",
+          "tooltip": "Specify the name of a URI List Object or Group to update in the Allowed list.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Forbidden URI List Object/Group",
+          "name": "forbidden_uri_list",
+          "type": "text",
+          "description": "Specify the name of a URI List Object or Group to update in the Forbidden URI list.",
+          "tooltip": "Specify the name of a URI List Object or Group to update in the Forbidden URI list.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        },
+        {
+          "title": "Additional Settings (JSON)",
+          "name": "settings",
+          "type": "json",
+          "tooltip": "Specify additional profile settings in JSON format (category actions, search order, consent, etc.) that are required to update a CFS profile object.",
+          "description": "Specify additional profile settings in JSON format (category actions, search order, consent, etc.) that are required to update a CFS profile object.",
+          "required": false,
+          "editable": true,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "operation": "delete_cfs_profile",
+      "title": "Delete CFS Profile Object",
+      "category": "investigation",
+      "annotation": "delete_cfs_profile",
+      "description": "Deletes a CFS Profile Object by name.",
+      "output_schema": {
+        "status": {
+          "success": "",
+          "info": [
+            {
+              "level": "",
+              "code": "",
+              "message": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "text",
+          "description": "Specify the name of the CFS profile object you want to delete.",
+          "tooltip": "Specify the name of the CFS action profile you want to delete.",
+          "required": true,
+          "editable": true,
+          "visible": true
+        }
+      ]
     }
   ]
 }
