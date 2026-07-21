@@ -1802,16 +1802,6 @@
           "editable": true,
           "visible": true,
           "description": "Provide a CSV list of entries which you want to remove from existing URI list Object's configuration."
-        },
-        {
-          "title": "Raw Payload Override",
-          "name": "raw_payload",
-          "type": "json",
-          "required": false,
-          "editable": true,
-          "visible": true,
-          "tooltip": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one.",
-          "description": "If user want to provide any custom payload request body. full JSON body to send as-is instead of auto-building one."
         }
       ]
     },
