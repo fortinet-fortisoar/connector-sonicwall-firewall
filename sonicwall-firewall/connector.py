@@ -18,6 +18,7 @@ class SonicWallConnector(Connector):
         try:
             logger.debug('Executing connector action: {}'.format(operation))
             action = operations.get(operation)
+            logger.info(f"Invoking Action: {action}")
             return action(client, params)
         except Exception as err:
             logger.error(str(err))
