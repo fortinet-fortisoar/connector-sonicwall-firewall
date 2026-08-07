@@ -71,7 +71,7 @@
       "title": "Create Address Object",
       "operation": "create_address_object_configuration",
       "description": "Creates a new address object on the SonicWall firewall.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "create_address_object_configuration",
       "output_schema": {
         "status": {
@@ -386,7 +386,7 @@
       "title": "Update Address Object",
       "operation": "update_address_object_configuration",
       "description": "Updates an existing address object on the SonicWall firewall.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "update_address_object_configuration",
       "output_schema": {
         "status": {
@@ -660,7 +660,7 @@
       "title": "Delete Address Object",
       "operation": "delete_address_object_configuration",
       "description": "Deletes the a specific address object based on specified input parameters.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "delete_address_object_configuration",
       "output_schema": {
         "status": {
@@ -739,7 +739,7 @@
       "title": "Create Address Group",
       "operation": "create_address_group",
       "description": "Creates a new Address Group Object Configuration on a SonicWall Firewall.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "create_address_group",
       "output_schema": {
         "status": {
@@ -882,7 +882,7 @@
       "title": "Update Address in Group",
       "operation": "update_address_group",
       "description": "Updates the configuration of an existing address object on a SonicWall firewall to reflect current network requirements or policies.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "update_address_group",
       "output_schema": {
         "status": {
@@ -1238,7 +1238,7 @@
       "title": "Delete Address From Group",
       "operation": "delete_address_group",
       "description": "Deletes the a specific address group based on specified input parameters.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "delete_address_group",
       "output_schema": {
         "status": {
@@ -1317,7 +1317,7 @@
       "title": "Add Address Object to Group",
       "operation": "add_address_object_to_group",
       "description": "Adds an existing address object to a specified address group.",
-      "category": "investigation",
+      "category": "containment",
       "annotation": "add_address_object_to_group",
       "output_schema": {
         "status": {
@@ -1413,7 +1413,7 @@
       "title": "Remove Address Object from Group",
       "operation": "remove_address_object_from_group",
       "description": "Removes an address object from an address group.",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "remove_address_object_from_group",
       "output_schema": {},
       "parameters": [
@@ -1490,7 +1490,7 @@
     {
       "operation": "create_uri_object_list",
       "title": "Create URI Object List",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "create_uri_object_list",
       "description": "Create a new content filter URI list object containing domain, URI, or keyword entries.",
       "output_schema": {
@@ -1633,7 +1633,7 @@
     {
       "operation": "add_entries_to_uri_object_list",
       "title": "Add Entries to URI Object List",
-      "category": "investigation",
+      "category": "containment",
       "annotation": "add_entries_to_uri_object_list",
       "description": "Add entries to the configuration of the existing URI list object",
       "output_schema": {
@@ -1721,7 +1721,7 @@
     {
       "operation": "remove_entries_from_uri_object_list",
       "title": "Remove Entries from URI Object List",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "remove_entries_from_uri_object_list",
       "description": "Remove entries from the specified URI list object's configuration.",
       "output_schema": {
@@ -1808,7 +1808,7 @@
     {
       "operation": "delete_uri_object_list",
       "title": "Delete URI Object List",
-      "category": "investigation",
+      "category": "remediation",
       "description": "Delete the specified URI list object's configuration.",
       "annotation": "delete_uri_object_list",
       "output_schema": {
@@ -1870,7 +1870,7 @@
     {
       "operation": "create_uri_group",
       "title": "Create URI List Group",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "create_uri_list_group",
       "description": "Create a new content filter URI list group object.",
       "output_schema": {
@@ -2000,7 +2000,7 @@
     {
       "operation": "update_uri_list_group",
       "title": "Update URI Group List",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "update_uri_list_group",
       "description": "Update a membership(Add/Remove) of an existing URI List Group.",
       "output_schema": {
@@ -2106,7 +2106,7 @@
     {
       "operation": "delete_uri_list_group",
       "title": "Delete URI Group List",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "delete_uri_list_group",
       "description": "Delete a specified content filter URI list group object.",
       "output_schema": {
@@ -2168,7 +2168,7 @@
     {
       "operation": "create_cfs_action",
       "title": "Create CFS Action Object",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "create_cfs_action",
       "description": "Create a Content Filter (CFS) Action Object defining what happens when a policy match occurs (block/confirm/passphrase/BWM). Provide the full object body as JSON since action objects have many optional nested settings.",
       "output_schema": {
@@ -2262,7 +2262,7 @@
     {
       "operation": "update_cfs_action",
       "title": "Update CFS Action Object",
-      "category": "investigation",
+      "category": "remediation",
       "description": "Update the specified CFS Action Object configuration based on the provided input parameters.",
       "annotation": "update_cfs_action",
       "output_schema": {
@@ -2303,7 +2303,7 @@
     {
       "operation": "delete_cfs_action",
       "title": "Delete CFS Action Object",
-      "category": "investigation",
+      "category": "remediation",
       "description": "Delete a CFS Action Object by name",
       "annotation": "delete_cfs_action",
       "output_schema": {
@@ -2334,7 +2334,7 @@
     {
       "operation": "create_cfs_profile",
       "title": "Create CFS Profile Object",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "create_cfs_profile",
       "description": "Create a Content Filter (CFS) Profile Object. At minimum lets you bind Allowed/Forbidden URI Lists; pass additional category/advanced settings via JSON.",
       "output_schema": {
@@ -2473,7 +2473,7 @@
     {
       "operation": "update_cfs_profile",
       "title": "Update CFS Profile Object",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "update_cfs_profile",
       "description": "Updates a Content Filter (CFS) Profile Object. At minimum lets you bind Allowed/Forbidden URI Lists; pass additional category/advanced settings via JSON.",
       "output_schema": {
@@ -2534,7 +2534,7 @@
     {
       "operation": "delete_cfs_profile",
       "title": "Delete CFS Profile Object",
-      "category": "investigation",
+      "category": "remediation",
       "annotation": "delete_cfs_profile",
       "description": "Deletes a CFS Profile Object by name.",
       "output_schema": {
